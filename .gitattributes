@@ -1,0 +1,4 @@
+*.shader linguist-detectable=false
+*.cginc linguist-detectable=false
+Assets/TextMesh[[:space:]]Pro/** linguist-vendored
+Assets/JMO[[:space:]]Assets/** linguist-vendored
