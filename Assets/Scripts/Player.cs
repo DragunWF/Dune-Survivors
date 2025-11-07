@@ -5,6 +5,11 @@ using UnityEngine;
 
 public sealed class Player : MonoBehaviour
 {
+    #region Animator Constant Parameters
+    private const string IS_MOVING = "isMoving";
+    private const string IS_DEAD = "isDead";
+    #endregion
+
     [SerializeField] private float moveSpeed = 1.5f;
 
     private Rigidbody2D rigidBody;
@@ -34,6 +39,7 @@ public sealed class Player : MonoBehaviour
     {
         inputVector.x = Input.GetAxisRaw("Horizontal");
         inputVector.y = Input.GetAxisRaw("Vertical");
+        animator.SetBool(IS_MOVING, inputVector != Vector2.zero);
         inputVector.Normalize();
     }
 
