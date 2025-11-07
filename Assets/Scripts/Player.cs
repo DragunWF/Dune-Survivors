@@ -12,22 +12,29 @@ public sealed class Player : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 1.5f;
 
+    private SpriteRenderer playerSpriteRenderer;
+    private GameObject playerWeaponObj;
+    private SpriteRenderer weaponSpriteRenderer;
+
     private Rigidbody2D rigidBody;
-    private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Vector2 inputVector;
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+
+        playerWeaponObj = GameObject.Find("Gun");
+        weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
+
         animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         Move();
-        SpriteDirection();
+        Aim();
     }
 
     private void FixedUpdate()
@@ -43,15 +50,24 @@ public sealed class Player : MonoBehaviour
         inputVector.Normalize();
     }
 
-    private void SpriteDirection()
+    private void Aim()
     {
-        if (inputVector.x > 0)
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (inputVector.x < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
+        // Aim weapon towards mouse position
+        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var aimDirection = mousePosition - transform.position;
+        var aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        weaponSpriteRenderer.transform.eulerAngles = new Vector3(0, 0, aimAngle);
+
+        var isMouseToTheLeft = mousePosition.x < transform.position.x;
+        playerSpriteRenderer.flipX = isMouseToTheLeft;
+        weaponSpriteRenderer.flipY = isMouseToTheLeft;
+
+        // Transform weapon position based on mouse side
+        float weaponPosX = Mathf.Abs(playerWeaponObj.transform.localPosition.x);
+        Vector2 weaponPos = new Vector2(
+            isMouseToTheLeft ? -weaponPosX : weaponPosX,
+            playerWeaponObj.transform.localPosition.y
+        );
+        playerWeaponObj.transform.localPosition = weaponPos;
     }
 }
