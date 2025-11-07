@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public sealed class Player : MonoBehaviour
 {
     #region Animator Constant Parameters
@@ -12,10 +15,21 @@ public sealed class Player : MonoBehaviour
 
     #endregion
 
+    #region Game Object Name Constants
+
+    private const string PLAYER_WEAPON = "Gun";
+    private const string GUN_TIP = "GunTip";
+
+    #endregion
+
+    #region Serializer Fields
+
     [SerializeField] private float moveSpeed = 1.5f;
     [SerializeField] private float bulletSpeed = 25f;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform gunTip;
+
+    #endregion
 
     private SpriteRenderer playerSpriteRenderer;
     private GameObject playerWeaponObj;
@@ -30,9 +44,9 @@ public sealed class Player : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
 
-        playerWeaponObj = GameObject.Find("Gun");
+        playerWeaponObj = GameObject.Find(PLAYER_WEAPON);
         weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
-        gunTip = playerWeaponObj.transform.Find("GunTip");
+        gunTip = playerWeaponObj.transform.Find(GUN_TIP);
 
         animator = GetComponent<Animator>();
     }
