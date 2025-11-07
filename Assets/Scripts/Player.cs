@@ -6,11 +6,16 @@ using UnityEngine;
 public sealed class Player : MonoBehaviour
 {
     #region Animator Constant Parameters
+
     private const string IS_MOVING = "isMoving";
     private const string IS_DEAD = "isDead";
+
     #endregion
 
     [SerializeField] private float moveSpeed = 1.5f;
+    [SerializeField] private float bulletSpeed = 25f;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform gunTip;
 
     private SpriteRenderer playerSpriteRenderer;
     private GameObject playerWeaponObj;
@@ -27,6 +32,7 @@ public sealed class Player : MonoBehaviour
 
         playerWeaponObj = GameObject.Find("Gun");
         weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
+        gunTip = playerWeaponObj.transform.Find("GunTip");
 
         animator = GetComponent<Animator>();
     }
@@ -35,6 +41,11 @@ public sealed class Player : MonoBehaviour
     {
         Move();
         Aim();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
     }
 
     private void FixedUpdate()
@@ -69,5 +80,14 @@ public sealed class Player : MonoBehaviour
             playerWeaponObj.transform.localPosition.y
         );
         playerWeaponObj.transform.localPosition = weaponPos;
+    }
+
+    private void Shoot()
+    {
+        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
+        var bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+        var direction = (Vector2)(mousePosition - gunTip.position).normalized;
+        bulletRigidbody.velocity = direction * bulletSpeed;
     }
 }
