@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  bulletSpeed: 40
+  bulletSpeed: 12
   bulletPrefab: {fileID: 3024618196392268057, guid: 0815d591ae44d4d4b92bd1c12121bde2, type: 3}
   gunTip: {fileID: 0}
 --- !u!95 &3028201868057243483
