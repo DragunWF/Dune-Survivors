@@ -17,8 +17,8 @@ public sealed class Enemy : MonoBehaviour
 
     [SerializeField] private int health = 3;
     [SerializeField] private float moveSpeed = 1.0f;
-    [SerializeField] private float knockbackSpeed = 7.5f;
-    [SerializeField] private float knockbackDuration = 0.25f;
+    [SerializeField] private float knockbackSpeed = 8.5f;
+    [SerializeField] private float knockbackDuration = 0.75f;
 
     #endregion
 

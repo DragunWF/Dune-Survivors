@@ -51,8 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 1
-  knockbackSpeed: 5
-  knockbackDuration: 0.2
+  knockbackSpeed: 7.5
+  knockbackDuration: 0.25
 --- !u!114 &7301439367975743142
 MonoBehaviour:
   m_ObjectHideFlags: 0
