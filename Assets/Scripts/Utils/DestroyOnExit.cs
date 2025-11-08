@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// This script inherits from StateMachineBehaviour, not MonoBehaviour.
 public class DestroyOnExit : StateMachineBehaviour
 {
     // This function is called when a transition starts from this state.

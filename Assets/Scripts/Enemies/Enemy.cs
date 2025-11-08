@@ -33,6 +33,7 @@ public sealed class Enemy : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private FlashEffect flashEffect;
+    private AudioPlayer audioPlayer;
     private bool isKnockedBack = false;
 
     private void Awake()
@@ -40,6 +41,7 @@ public sealed class Enemy : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         flashEffect = GetComponent<FlashEffect>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
 
         playerObj = GameObject.FindWithTag(PLAYER);
         if (playerObj != null)
@@ -88,6 +90,7 @@ public sealed class Enemy : MonoBehaviour
             health--;
             flashEffect.Flash();
             StartCoroutine(Knockback(true));
+            audioPlayer.PlayDamageClip();
 
             if (health <= 0)
             {

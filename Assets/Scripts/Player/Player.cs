@@ -8,7 +8,6 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(FlashEffect))]
-[RequireComponent(typeof(CapsuleCollider2D))]
 public sealed class Player : MonoBehaviour
 {
     #region Animator Constant Parameters
@@ -54,9 +53,9 @@ public sealed class Player : MonoBehaviour
     private Rigidbody2D rigidBody;
     private Animator animator;
     private Vector2 inputVector;
-    private CapsuleCollider2D capsuleCollider;
 
     private FlashEffect flashEffect;
+    private AudioPlayer audioPlayer;
 
     #endregion
 
@@ -64,6 +63,7 @@ public sealed class Player : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
 
         playerWeaponObj = GameObject.Find(PLAYER_WEAPON);
         weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
@@ -71,7 +71,6 @@ public sealed class Player : MonoBehaviour
 
         flashEffect = GetComponent<FlashEffect>();
         animator = GetComponent<Animator>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
     private void Update()
@@ -122,6 +121,8 @@ public sealed class Player : MonoBehaviour
 
     private void Shoot()
     {
+        audioPlayer.PlayPlayerShootClip();
+
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
         var bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
@@ -134,6 +135,7 @@ public sealed class Player : MonoBehaviour
         if (!isInDamageCooldown)
         {
             flashEffect.Flash();
+            audioPlayer.PlayDamageClip();
             health--;
             isInDamageCooldown = true;
             Invoke(nameof(ResetDamageCooldown), damageCooldownDuration);
