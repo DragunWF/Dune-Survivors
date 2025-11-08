@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(FlashEffect))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public sealed class Player : MonoBehaviour
 {
     #region Animator Constant Parameters
@@ -39,6 +40,7 @@ public sealed class Player : MonoBehaviour
     private Rigidbody2D rigidBody;
     private Animator animator;
     private Vector2 inputVector;
+    private CapsuleCollider2D capsuleCollider;
 
     private FlashEffect flashEffect;
 
@@ -52,8 +54,8 @@ public sealed class Player : MonoBehaviour
         gunTip = playerWeaponObj.transform.Find(GUN_TIP);
 
         flashEffect = GetComponent<FlashEffect>();
-
         animator = GetComponent<Animator>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
     private void Update()
@@ -109,5 +111,13 @@ public sealed class Player : MonoBehaviour
         var bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
         var direction = (Vector2)(mousePosition - gunTip.position);
         bulletRigidbody.velocity = direction.normalized * bulletSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(GameTag.Enemy.ToString()))
+        {
+            flashEffect.Flash();
+        }
     }
 }

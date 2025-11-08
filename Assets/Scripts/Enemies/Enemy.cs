@@ -71,4 +71,16 @@ public sealed class Enemy : MonoBehaviour
         bool isPlayerToTheRight = playerTransform.position.x < transform.position.x;
         spriteRenderer.flipX = isPlayerToTheRight;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(GameTag.Bullet.ToString()))
+        {
+
+        }
+        else if (collision.CompareTag(GameTag.Player.ToString()))
+        {
+            // Handle collision with player (e.g., deal damage)
+        }
+    }
 }
