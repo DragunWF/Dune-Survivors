@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -26,12 +27,25 @@ public sealed class Player : MonoBehaviour
 
     #region Serializer Fields
 
+    [Tooltip("Player Stats")]
+    [SerializeField] private int health = 5;
     [SerializeField] private float moveSpeed = 1.5f;
     [SerializeField] private float bulletSpeed = 25f;
+    [SerializeField] private float damageCooldownDuration = 3.5f;
+
+    [Tooltip("Object Dependencies")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform gunTip;
 
     #endregion
+
+    #region Player State Fields
+
+    private bool isInDamageCooldown = false;
+
+    #endregion
+
+    #region Component & Game Object References
 
     private SpriteRenderer playerSpriteRenderer;
     private GameObject playerWeaponObj;
@@ -43,6 +57,8 @@ public sealed class Player : MonoBehaviour
     private CapsuleCollider2D capsuleCollider;
 
     private FlashEffect flashEffect;
+
+    #endregion
 
     private void Awake()
     {
@@ -115,6 +131,17 @@ public sealed class Player : MonoBehaviour
 
     public void TakeDamage()
     {
-        flashEffect.Flash();
+        if (!isInDamageCooldown)
+        {
+            flashEffect.Flash();
+            health--;
+            isInDamageCooldown = true;
+            Invoke(nameof(ResetDamageCooldown), damageCooldownDuration);
+        }
+    }
+
+    private void ResetDamageCooldown()
+    {
+        isInDamageCooldown = false;
     }
 }

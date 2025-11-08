@@ -136,8 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647b82d874a0b47e3ac6a83f23e8bc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 5
   moveSpeed: 5
   bulletSpeed: 12
+  damageCooldownDuration: 3.5
   bulletPrefab: {fileID: 3024618196392268057, guid: 0815d591ae44d4d4b92bd1c12121bde2, type: 3}
   gunTip: {fileID: 0}
 --- !u!114 &4725164932715949940
@@ -153,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: a56bcc3b1bad7b2498c7e9486a2429d2, type: 2}
-  isUsingPlayer: 0
+  effectDuration: 3.5
 --- !u!95 &3028201868057243483
 Animator:
   serializedVersion: 5

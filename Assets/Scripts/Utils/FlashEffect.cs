@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class FlashEffect : MonoBehaviour
+public sealed class FlashEffect : MonoBehaviour
 {
     [Tooltip("Flash Type")]
     [SerializeField] private Material flashMaterial;
-    [SerializeField] private bool isUsingPlayer;
+    [SerializeField] private float effectDuration = 1.5f;
 
     private SpriteRenderer spriteRenderer;
     private Material originalMaterial;
 
     private Coroutine flashRoutine;
-    private float effectDuration;
 
     private void Awake()
     {
@@ -22,7 +21,6 @@ public class FlashEffect : MonoBehaviour
 
     private void Start()
     {
-        effectDuration = 1.5f;
         originalMaterial = spriteRenderer.material;
     }
 
