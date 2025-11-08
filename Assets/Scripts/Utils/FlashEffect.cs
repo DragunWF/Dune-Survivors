@@ -26,14 +26,26 @@ public sealed class FlashEffect : MonoBehaviour
 
     public void Flash()
     {
+        // Stop any previous flash to avoid multiple coroutines running.
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+        CancelInvoke(nameof(StopFlash));
+
         flashRoutine = StartCoroutine(StartFlashEffect());
         Invoke(nameof(StopFlash), effectDuration);
     }
 
-    private void StopFlash()
+    public void StopFlash()
     {
-        StopCoroutine(flashRoutine);
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+            flashRoutine = null;
+        }
         spriteRenderer.material = originalMaterial;
+        CancelInvoke(nameof(StopFlash));
     }
 
     private IEnumerator StartFlashEffect()

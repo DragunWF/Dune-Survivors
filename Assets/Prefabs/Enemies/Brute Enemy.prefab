@@ -51,10 +51,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 1
+  deathAnimationDuration: 12.5
   takeDamageKnockbackSpeed: 4
   takeDamageKnockbackDuration: 0.15
   hitPlayerKnockbackSpeed: 8.5
   hitPlayerknockbackDuration: 0.25
+  deathEffectPrefab: {fileID: 9014080968735802713, guid: d3f2a3decfbd24093b846f24410a4fc8, type: 3}
 --- !u!114 &3670105604977833941
 MonoBehaviour:
   m_ObjectHideFlags: 0

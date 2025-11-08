@@ -5,11 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(FlashEffect))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Collider2D))]
 public sealed class Enemy : MonoBehaviour
 {
-    #region Game Object Name Constants
+    #region Game Object Name Constants and Animator Parameters
 
-    private const string PLAYER = "Player";
+    private const string PLAYER = "Player"; // GameObject tag
+    private const string IS_DEAD = "isDead"; // Animator parameter
 
     #endregion
 
@@ -18,6 +21,7 @@ public sealed class Enemy : MonoBehaviour
     [Tooltip("Enemy Stats")]
     [SerializeField] private int health = 3;
     [SerializeField] private float moveSpeed = 1.0f;
+    [SerializeField] private float deathAnimationDuration = 0.5f;
 
     [Tooltip("Knockback Settings")]
     [SerializeField] private float takeDamageKnockbackSpeed = 4.0f;
@@ -25,16 +29,21 @@ public sealed class Enemy : MonoBehaviour
     [SerializeField] private float hitPlayerKnockbackSpeed = 8.5f;
     [SerializeField] private float hitPlayerknockbackDuration = 0.25f;
 
+    [Tooltip("Prefab Dependencies")]
+    [SerializeField] private GameObject deathEffectPrefab;
+
     #endregion
 
     private GameObject playerObj;
     private Transform playerTransform;
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
     private FlashEffect flashEffect;
     private AudioPlayer audioPlayer;
     private bool isKnockedBack = false;
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -42,6 +51,7 @@ public sealed class Enemy : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         flashEffect = GetComponent<FlashEffect>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
+        animator = GetComponent<Animator>();
 
         playerObj = GameObject.FindWithTag(PLAYER);
         if (playerObj != null)
@@ -56,6 +66,8 @@ public sealed class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (isDead) return;
+
         if (playerTransform != null)
         {
             FlipSprite();
@@ -64,6 +76,8 @@ public sealed class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead) return;
+
         if (playerTransform != null && !isKnockedBack)
         {
             MoveTowardsPlayer();
@@ -84,6 +98,8 @@ public sealed class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDead) return;
+
         if (collision.CompareTag(GameTag.Bullet.ToString()))
         {
             Destroy(collision.gameObject);
@@ -94,7 +110,7 @@ public sealed class Enemy : MonoBehaviour
 
             if (health <= 0)
             {
-                Destroy(gameObject);
+                Death();
             }
         }
         else if (collision.CompareTag(GameTag.Player.ToString()))
@@ -122,5 +138,33 @@ public sealed class Enemy : MonoBehaviour
         yield return new WaitForSeconds(hitPlayerknockbackDuration);
         isKnockedBack = false;
         rigidBody.velocity = Vector2.zero;
+    }
+
+    private void Death()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        rigidBody.velocity = Vector2.zero;
+        GetComponent<Collider2D>().enabled = false;
+
+        animator.SetBool(IS_DEAD, true);
+
+        StartCoroutine(DestroyAfterAnimation());
+    }
+
+    private IEnumerator DestroyAfterAnimation()
+    {
+        const float stopFlashDelay = 0.1f;
+        yield return new WaitForSeconds(stopFlashDelay);
+        flashEffect.StopFlash();
+
+        yield return new WaitForSeconds(deathAnimationDuration);
+
+        if (deathEffectPrefab != null)
+        {
+            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
     }
 }
