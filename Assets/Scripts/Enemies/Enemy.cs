@@ -15,10 +15,15 @@ public sealed class Enemy : MonoBehaviour
 
     #region Serializer Fields
 
+    [Tooltip("Enemy Stats")]
     [SerializeField] private int health = 3;
     [SerializeField] private float moveSpeed = 1.0f;
-    [SerializeField] private float knockbackSpeed = 8.5f;
-    [SerializeField] private float knockbackDuration = 0.75f;
+
+    [Tooltip("Knockback Settings")]
+    [SerializeField] private float takeDamageKnockbackSpeed = 4.0f;
+    [SerializeField] private float takeDamageKnockbackDuration = 0.1f;
+    [SerializeField] private float hitPlayerKnockbackSpeed = 8.5f;
+    [SerializeField] private float hitPlayerknockbackDuration = 0.25f;
 
     #endregion
 
@@ -79,7 +84,15 @@ public sealed class Enemy : MonoBehaviour
     {
         if (collision.CompareTag(GameTag.Bullet.ToString()))
         {
+            Destroy(collision.gameObject);
+            health--;
+            flashEffect.Flash();
+            StartCoroutine(Knockback(true));
 
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
         else if (collision.CompareTag(GameTag.Player.ToString()))
         {
@@ -87,21 +100,23 @@ public sealed class Enemy : MonoBehaviour
             if (player != null)
             {
                 player.TakeDamage();
-                StartCoroutine(Knockback());
+                StartCoroutine(Knockback(false));
             }
         }
     }
 
-    private IEnumerator Knockback()
+    private IEnumerator Knockback(bool isBulletTaken)
     {
         isKnockedBack = true;
         if (playerTransform != null)
         {
             Vector2 knockbackDirection = (transform.position - playerTransform.position).normalized;
-            float randomSpeed = Random.Range(knockbackSpeed * 0.8f, knockbackSpeed * 1.2f);
+            float randomSpeed = isBulletTaken
+                ? Random.Range(takeDamageKnockbackSpeed * 0.8f, takeDamageKnockbackSpeed * 1.2f)
+                : Random.Range(hitPlayerKnockbackSpeed * 0.8f, hitPlayerKnockbackSpeed * 1.2f);
             rigidBody.velocity = knockbackDirection * randomSpeed;
         }
-        yield return new WaitForSeconds(knockbackDuration);
+        yield return new WaitForSeconds(hitPlayerknockbackDuration);
         isKnockedBack = false;
         rigidBody.velocity = Vector2.zero;
     }

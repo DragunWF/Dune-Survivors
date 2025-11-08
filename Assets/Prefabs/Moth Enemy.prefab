@@ -51,8 +51,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 1
-  knockbackSpeed: 7.5
-  knockbackDuration: 0.25
+  takeDamageKnockbackSpeed: 4
+  takeDamageKnockbackDuration: 0.15
+  hitPlayerKnockbackSpeed: 8.5
+  hitPlayerknockbackDuration: 0.25
 --- !u!114 &508894727855534244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,8 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774b648d223d542eca047562724bf129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 0}
-  isUsingPlayer: 0
+  flashMaterial: {fileID: 2100000, guid: a56bcc3b1bad7b2498c7e9486a2429d2, type: 2}
+  effectDuration: 1.5
 --- !u!212 &8431299743960036394
 SpriteRenderer:
   m_ObjectHideFlags: 0
