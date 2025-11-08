@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(FlashEffect))]
 public sealed class Enemy : MonoBehaviour
 {
     #region Game Object Name Constants
@@ -24,10 +25,13 @@ public sealed class Enemy : MonoBehaviour
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
 
+    private FlashEffect flashEffect;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        flashEffect = GetComponent<FlashEffect>();
 
         playerObj = GameObject.FindWithTag(PLAYER);
         if (playerObj != null)

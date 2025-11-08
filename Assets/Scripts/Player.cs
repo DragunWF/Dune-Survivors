@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(FlashEffect))]
 public sealed class Player : MonoBehaviour
 {
     #region Animator Constant Parameters
@@ -39,6 +40,8 @@ public sealed class Player : MonoBehaviour
     private Animator animator;
     private Vector2 inputVector;
 
+    private FlashEffect flashEffect;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -47,6 +50,8 @@ public sealed class Player : MonoBehaviour
         playerWeaponObj = GameObject.Find(PLAYER_WEAPON);
         weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
         gunTip = playerWeaponObj.transform.Find(GUN_TIP);
+
+        flashEffect = GetComponent<FlashEffect>();
 
         animator = GetComponent<Animator>();
     }
