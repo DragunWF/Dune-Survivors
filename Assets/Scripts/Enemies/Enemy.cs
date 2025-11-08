@@ -97,7 +97,7 @@ public sealed class Enemy : MonoBehaviour
         else if (collision.CompareTag(GameTag.Player.ToString()))
         {
             Player player = collision.GetComponent<Player>();
-            if (player != null) 
+            if (player != null)
             {
                 player.TakeDamage();
                 StartCoroutine(Knockback(false));
