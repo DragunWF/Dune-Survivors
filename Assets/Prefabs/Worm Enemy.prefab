@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2208473269543933861}
   - component: {fileID: 2208473269543933864}
+  - component: {fileID: 4808677988650241118}
   - component: {fileID: 2208473269543933860}
   - component: {fileID: 2208473269543933862}
   - component: {fileID: 2208473269543933863}
   - component: {fileID: 2208473269543933865}
+  - component: {fileID: 4399352535956313303}
   m_Layer: 0
   m_Name: Worm Enemy
   m_TagString: Enemy
@@ -50,6 +52,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 1
+--- !u!114 &4808677988650241118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2208473269543933859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774b648d223d542eca047562724bf129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  isUsingPlayer: 0
 --- !u!212 &2208473269543933860
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -170,3 +186,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3125, y: 0.56250715}
   m_EdgeRadius: 0
+--- !u!114 &4399352535956313303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2208473269543933859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774b648d223d542eca047562724bf129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  isUsingPlayer: 0

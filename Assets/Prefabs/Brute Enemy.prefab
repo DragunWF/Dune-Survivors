@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8594147975453333581}
   - component: {fileID: 8594147975453333568}
+  - component: {fileID: 3670105604977833941}
   - component: {fileID: 8594147975453333580}
   - component: {fileID: 8594147975453333583}
   - component: {fileID: 8594147975453333569}
   - component: {fileID: 8594147975453333582}
+  - component: {fileID: 7603697645664090135}
   m_Layer: 0
   m_Name: Brute Enemy
   m_TagString: Enemy
@@ -50,6 +52,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 1
+--- !u!114 &3670105604977833941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8594147975453333578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774b648d223d542eca047562724bf129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  isUsingPlayer: 0
 --- !u!212 &8594147975453333580
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -170,3 +186,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99967146, y: 1.1941628}
   m_EdgeRadius: 0
+--- !u!114 &7603697645664090135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8594147975453333578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774b648d223d542eca047562724bf129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  isUsingPlayer: 0

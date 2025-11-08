@@ -95,6 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3028201868057243430}
   - component: {fileID: 3028201868057243431}
+  - component: {fileID: 4725164932715949940}
   - component: {fileID: 3028201868057243483}
   - component: {fileID: 3028201868057243429}
   - component: {fileID: 3028201868057243428}
@@ -138,6 +139,20 @@ MonoBehaviour:
   bulletSpeed: 12
   bulletPrefab: {fileID: 3024618196392268057, guid: 0815d591ae44d4d4b92bd1c12121bde2, type: 3}
   gunTip: {fileID: 0}
+--- !u!114 &4725164932715949940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028201868057243424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774b648d223d542eca047562724bf129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: a56bcc3b1bad7b2498c7e9486a2429d2, type: 2}
+  isUsingPlayer: 0
 --- !u!95 &3028201868057243483
 Animator:
   serializedVersion: 5

@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8738360517848481989}
   - component: {fileID: 8738360517848481848}
+  - component: {fileID: 7301439367975743142}
   - component: {fileID: 8738360517848481988}
   - component: {fileID: 8738360517848481991}
   - component: {fileID: 8738360517848481849}
   - component: {fileID: 8738360517848481990}
+  - component: {fileID: 8996135551563968470}
   m_Layer: 0
   m_Name: Gremlin Enemy
   m_TagString: Enemy
@@ -50,6 +52,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 1
+--- !u!114 &7301439367975743142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8738360517848481986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774b648d223d542eca047562724bf129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  isUsingPlayer: 0
 --- !u!212 &8738360517848481988
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -170,3 +186,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.74728394, y: 0.81154114}
   m_EdgeRadius: 0
+--- !u!114 &8996135551563968470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8738360517848481986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774b648d223d542eca047562724bf129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  isUsingPlayer: 0
