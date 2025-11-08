@@ -17,6 +17,8 @@ public sealed class Enemy : MonoBehaviour
 
     [SerializeField] private int health = 3;
     [SerializeField] private float moveSpeed = 1.0f;
+    [SerializeField] private float knockbackSpeed = 7.5f;
+    [SerializeField] private float knockbackDuration = 0.25f;
 
     #endregion
 
@@ -26,6 +28,7 @@ public sealed class Enemy : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private FlashEffect flashEffect;
+    private bool isKnockedBack = false;
 
     private void Awake()
     {
@@ -54,7 +57,7 @@ public sealed class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerTransform != null)
+        if (playerTransform != null && !isKnockedBack)
         {
             MoveTowardsPlayer();
         }
@@ -80,7 +83,26 @@ public sealed class Enemy : MonoBehaviour
         }
         else if (collision.CompareTag(GameTag.Player.ToString()))
         {
-            // Handle collision with player (e.g., deal damage)
+            Player player = collision.GetComponent<Player>();
+            if (player != null)
+            {
+                player.TakeDamage();
+                StartCoroutine(Knockback());
+            }
         }
+    }
+
+    private IEnumerator Knockback()
+    {
+        isKnockedBack = true;
+        if (playerTransform != null)
+        {
+            Vector2 knockbackDirection = (transform.position - playerTransform.position).normalized;
+            float randomSpeed = Random.Range(knockbackSpeed * 0.8f, knockbackSpeed * 1.2f);
+            rigidBody.velocity = knockbackDirection * randomSpeed;
+        }
+        yield return new WaitForSeconds(knockbackDuration);
+        isKnockedBack = false;
+        rigidBody.velocity = Vector2.zero;
     }
 }

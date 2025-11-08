@@ -51,6 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 1
+  knockbackSpeed: 5
+  knockbackDuration: 0.2
 --- !u!114 &7301439367975743142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +160,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8738360517848481990
 BoxCollider2D:
   m_ObjectHideFlags: 0

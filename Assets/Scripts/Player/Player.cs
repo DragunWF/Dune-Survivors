@@ -113,11 +113,8 @@ public sealed class Player : MonoBehaviour
         bulletRigidbody.velocity = direction.normalized * bulletSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void TakeDamage()
     {
-        if (collision.CompareTag(GameTag.Enemy.ToString()))
-        {
-            flashEffect.Flash();
-        }
+        flashEffect.Flash();
     }
 }
