@@ -18,19 +18,36 @@ public sealed class Enemy : MonoBehaviour
 
     #region Serializer Fields
 
-    [Tooltip("Enemy Stats")]
+    [Header("Enemy Stats")]
     [SerializeField] private int health = 3;
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float deathAnimationDuration = 0.5f;
 
-    [Tooltip("Knockback Settings")]
+    [Header("Knockback Settings")]
     [SerializeField] private float takeDamageKnockbackSpeed = 4.0f;
     [SerializeField] private float takeDamageKnockbackDuration = 0.1f;
     [SerializeField] private float hitPlayerKnockbackSpeed = 8.5f;
     [SerializeField] private float hitPlayerknockbackDuration = 0.25f;
 
-    [Tooltip("Prefab Dependencies")]
+    [Header("Prefab Dependencies")]
     [SerializeField] private GameObject deathEffectPrefab;
+    [SerializeField] private GameObject magicProjectilePrefab;
+
+    [Header("Enemy Type")]
+    [SerializeField] private EnemyType enemyType = EnemyType.Melee;
+
+    [Header("Ranged Attack Settings")]
+    [SerializeField] private float attackRange = 5f;
+    [SerializeField] private float attackInterval = 2f;
+    [SerializeField] private float projectileSpeed = 2f;
+
+    [Header("Burst Attack Settings")]
+    [SerializeField] private int burstCount = 3;
+    [SerializeField] private float timeBetweenBursts = 0.2f;
+
+    [Header("Shotgun Attack Settings")]
+    [SerializeField] private int shotgunPelletCount = 5;
+    [SerializeField] private float shotgunSpreadAngle = 45f;
 
     #endregion
 
@@ -46,6 +63,8 @@ public sealed class Enemy : MonoBehaviour
 
     private AudioPlayer audioPlayer;
     private GameStats gameStats;
+
+    private float nextAttackTime = 0f;
 
     private void Awake()
     {
@@ -70,28 +89,97 @@ public sealed class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (isDead) return;
+        if (isDead || playerTransform == null) return;
 
-        if (playerTransform != null)
+        FlipSprite();
+
+        if (enemyType == EnemyType.Melee) return;
+
+        if (Time.time >= nextAttackTime)
         {
-            FlipSprite();
+            if (Vector2.Distance(transform.position, playerTransform.position) <= attackRange)
+            {
+                PerformRangedAttack();
+                nextAttackTime = Time.time + attackInterval;
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if (isDead) return;
+        if (isDead || playerTransform == null || isKnockedBack) return;
 
-        if (playerTransform != null && !isKnockedBack)
+        if (enemyType != EnemyType.Melee && Vector2.Distance(transform.position, playerTransform.position) <= attackRange)
         {
-            MoveTowardsPlayer();
+            rigidBody.velocity = Vector2.zero; // Stop moving if in attack range for ranged enemies
+            return;
         }
+
+        MoveTowardsPlayer();
+    }
+
+    private void PerformRangedAttack()
+    {
+        switch (enemyType)
+        {
+            case EnemyType.Ranged:
+                Shoot(GetDirectionToPlayer());
+                break;
+            case EnemyType.Burst:
+                StartCoroutine(BurstAttack());
+                break;
+            case EnemyType.Shotgun:
+                ShotgunAttack();
+                break;
+        }
+    }
+
+    private void Shoot(Vector2 direction)
+    {
+        if (magicProjectilePrefab == null)
+        {
+            Debug.LogError("Magic Projectile Prefab is not assigned in the inspector!");
+            return;
+        }
+
+        GameObject projectile = Instantiate(magicProjectilePrefab, transform.position, Quaternion.identity);
+        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+        if (projectileRb != null)
+        {
+            projectileRb.velocity = direction.normalized * projectileSpeed;
+        }
+    }
+
+    private IEnumerator BurstAttack()
+    {
+        for (int i = 0; i < burstCount; i++)
+        {
+            Shoot(GetDirectionToPlayer());
+            yield return new WaitForSeconds(timeBetweenBursts);
+        }
+    }
+
+    private void ShotgunAttack()
+    {
+        for (int i = 0; i < shotgunPelletCount; i++)
+        {
+            Vector2 direction = GetDirectionToPlayer();
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float spread = Random.Range(-shotgunSpreadAngle / 2, shotgunSpreadAngle / 2);
+            Quaternion rotation = Quaternion.Euler(0, 0, angle + spread);
+            Shoot(rotation * Vector2.right);
+        }
+    }
+
+    private Vector2 GetDirectionToPlayer()
+    {
+        if (playerTransform == null) return Vector2.zero;
+        return (playerTransform.position - transform.position).normalized;
     }
 
     private void MoveTowardsPlayer()
     {
-        Vector2 direction = (playerTransform.position - transform.position).normalized;
-        rigidBody.velocity = direction * moveSpeed;
+        rigidBody.velocity = GetDirectionToPlayer() * moveSpeed;
     }
 
     private void FlipSprite()
@@ -119,11 +207,7 @@ public sealed class Enemy : MonoBehaviour
         }
         else if (collision.CompareTag(GameTag.Player.ToString()))
         {
-            if (collision.TryGetComponent<Player>(out var player))
-            {
-                player.TakeDamage();
-                StartCoroutine(Knockback(false));
-            }
+            StartCoroutine(Knockback(false));
         }
     }
 

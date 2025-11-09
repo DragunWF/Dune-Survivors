@@ -154,4 +154,13 @@ public sealed class Player : MonoBehaviour
     {
         isInDamageCooldown = false;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(GameTag.EnemyProjectile.ToString()) ||
+            collision.CompareTag(GameTag.Enemy.ToString()))
+        {
+            TakeDamage();
+        }
+    }
 }

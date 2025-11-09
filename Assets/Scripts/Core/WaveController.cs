@@ -16,16 +16,16 @@ public sealed class WaveController : MonoBehaviour
         // Wave difficulty settings
         waves = new Wave[]
         {
-            new(15, 2.5f, 2, 1),  // Wave 1 (~12 enemies)
-            new(30, 2.5f, 3, 1),  // Wave 2 (~24 enemies)
-            new(45, 2.2f, 4, 2),  // Wave 3 (~40 enemies)
-            new(60, 2.5f, 4, 2),  // Wave 4 (~48 enemies)
-            new(75, 2.2f, 4, 3),  // Wave 5 (~68 enemies)
-            new(90, 2.0f, 4, 3),  // Wave 6 (90 enemies)
-            new(105, 1.8f, 4, 4), // Wave 7 (~116 enemies)
-            new(120, 1.8f, 4, 4), // Wave 8 (~133 enemies)
-            new(135, 1.8f, 4, 5), // Wave 9 (150 enemies)
-            new(150, 1.6f, 4, 5)  // Wave 10 (~187 enemies)
+            new(15, 2.5f, 2, 1),  // Wave 1 
+            new(30, 2.5f, 3, 1),  // Wave 2 
+            new(45, 2.2f, 4, 2),  // Wave 3 
+            new(60, 2.5f, 4, 2),  // Wave 4 
+            new(75, 2.2f, 4, 3),  // Wave 5 
+            new(90, 2.0f, 4, 3),  // Wave 6 
+            new(105, 1.8f, 4, 4), // Wave 7 
+            new(120, 1.8f, 4, 4), // Wave 8 
+            new(135, 1.8f, 4, 5), // Wave 9 
+            new(150, 1.6f, 4, 5)  // Wave 10 
         };
     }
 

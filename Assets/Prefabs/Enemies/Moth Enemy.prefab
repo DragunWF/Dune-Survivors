@@ -57,6 +57,15 @@ MonoBehaviour:
   hitPlayerKnockbackSpeed: 8.5
   hitPlayerknockbackDuration: 0.25
   deathEffectPrefab: {fileID: 9014080968735802713, guid: d3f2a3decfbd24093b846f24410a4fc8, type: 3}
+  magicProjectilePrefab: {fileID: 3421850811927630219, guid: 23702c3dc8f4a49949967bef206d0b34, type: 3}
+  enemyType: 2
+  attackRange: 5
+  attackInterval: 2
+  projectileSpeed: 3
+  burstCount: 3
+  timeBetweenBursts: 0.2
+  shotgunPelletCount: 5
+  shotgunSpreadAngle: 45
 --- !u!114 &508894727855534244
 MonoBehaviour:
   m_ObjectHideFlags: 0

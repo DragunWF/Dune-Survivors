@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3421850811927630209}
   m_Layer: 8
   m_Name: Enemy Magic Projectile
-  m_TagString: Enemy Projectile
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactEffectPrefab: {fileID: 6250719731796923351, guid: ba0be222362404e52b2cebe3d445cb40, type: 3}
   despawnTime: 5
+  isEnemyProjectile: 1
 --- !u!212 &3421850811927630223
 SpriteRenderer:
   m_ObjectHideFlags: 0
