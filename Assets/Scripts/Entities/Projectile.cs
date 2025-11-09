@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public sealed class Bullet : MonoBehaviour
+public sealed class Projectile : MonoBehaviour
 {
     [SerializeField] private GameObject impactEffectPrefab;
     [SerializeField] private float despawnTime = 5f;

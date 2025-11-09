@@ -10,10 +10,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float maxSpawnOffset = 5f;
 
     private Camera mainCamera;
+    private WaveController waveController;
 
     private void Start()
     {
         mainCamera = Camera.main;
+        waveController = FindObjectOfType<WaveController>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
@@ -29,12 +31,24 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            float randomInterval = Random.Range(spawnInterval * 0.75f, spawnInterval * 1.25f);
+            Wave currentWave = waveController.GetCurrentWave();
+
+            float randomInterval = Random.Range(currentWave.SpawnInterval * 0.75f,
+                                                currentWave.SpawnInterval * 1.25f);
             yield return new WaitForSeconds(randomInterval);
 
-            Vector2 spawnPosition = GetRandomSpawnPosition();
-            int randomIndex = Random.Range(0, enemyPrefabs.Length);
-            Instantiate(enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
+            for (int i = 0; i < currentWave.EnemySpawnCountPerInterval; i++)
+            {
+                Vector2 spawnPosition = GetRandomSpawnPosition();
+                int maxEnemyIndexRange = currentWave.EnemyTypeCount;
+                if (maxEnemyIndexRange > enemyPrefabs.Length)
+                {
+                    maxEnemyIndexRange = enemyPrefabs.Length;
+                }
+
+                int randomIndex = Random.Range(0, maxEnemyIndexRange);
+                Instantiate(enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
+            }
         }
     }
 
