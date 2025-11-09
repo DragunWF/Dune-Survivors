@@ -18,16 +18,4 @@ public sealed class Projectile : MonoBehaviour
             Instantiate(impactEffectPrefab, transform.position, transform.rotation);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (isEnemyProjectile && collision.CompareTag(GameTag.Player.ToString()))
-        {
-            Destroy(gameObject);
-        }
-        else if (!isEnemyProjectile && collision.CompareTag(GameTag.Enemy.ToString()))
-        {
-            Destroy(gameObject);
-        }
-    }
 }

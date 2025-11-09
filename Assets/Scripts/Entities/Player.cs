@@ -160,8 +160,12 @@ public sealed class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(GameTag.EnemyProjectile.ToString()) ||
-            collision.CompareTag(GameTag.Enemy.ToString()))
+        if (collision.CompareTag(GameTag.EnemyProjectile.ToString()))
+        {
+            TakeDamage();
+            Destroy(collision.gameObject);
+        }
+        else if (collision.CompareTag(GameTag.Enemy.ToString()))
         {
             TakeDamage();
         }
