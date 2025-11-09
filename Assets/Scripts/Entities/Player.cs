@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(FlashEffect))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public sealed class Player : MonoBehaviour
 {
     #region Animator Constant Parameters
@@ -52,6 +53,7 @@ public sealed class Player : MonoBehaviour
     private GameObject playerWeaponObj;
     private SpriteRenderer weaponSpriteRenderer;
 
+    private CapsuleCollider2D playerCollider;
     private Rigidbody2D rigidBody;
     private Animator animator;
     private Vector2 inputVector;
@@ -68,6 +70,7 @@ public sealed class Player : MonoBehaviour
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
         gameSceneUI = FindObjectOfType<GameSceneUI>();
+        playerCollider = GetComponent<CapsuleCollider2D>();
 
         playerWeaponObj = GameObject.Find(PLAYER_WEAPON);
         weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
@@ -142,7 +145,7 @@ public sealed class Player : MonoBehaviour
 
     public void TakeDamage()
     {
-        if (!isInDamageCooldown)
+        if (!isInDamageCooldown && health > 0)
         {
             flashEffect.Flash();
             audioPlayer.PlayDamageClip();
@@ -150,12 +153,24 @@ public sealed class Player : MonoBehaviour
             gameSceneUI.UpdatePlayerHealth(health);
             isInDamageCooldown = true;
             Invoke(nameof(ResetDamageCooldown), damageCooldownDuration);
+
+            if (health <= 0)
+            {
+                Death();
+            }
         }
     }
 
     private void ResetDamageCooldown()
     {
         isInDamageCooldown = false;
+    }
+
+    private void Death()
+    {
+        animator.SetBool(IS_DEAD, true);
+        // Disable player controls
+        enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
