@@ -41,17 +41,21 @@ public sealed class Enemy : MonoBehaviour
     private Animator animator;
 
     private FlashEffect flashEffect;
-    private AudioPlayer audioPlayer;
     private bool isKnockedBack = false;
     private bool isDead = false;
+
+    private AudioPlayer audioPlayer;
+    private GameStats gameStats;
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         flashEffect = GetComponent<FlashEffect>();
-        audioPlayer = FindObjectOfType<AudioPlayer>();
         animator = GetComponent<Animator>();
+
+        audioPlayer = FindObjectOfType<AudioPlayer>();
+        gameStats = FindObjectOfType<GameStats>();
 
         playerObj = GameObject.FindWithTag(PLAYER);
         if (playerObj != null)
@@ -149,6 +153,7 @@ public sealed class Enemy : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
 
         animator.SetBool(IS_DEAD, true);
+        gameStats.IncrementEnemiesDefeated();
 
         StartCoroutine(DestroyAfterAnimation());
     }

@@ -10,7 +10,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float maxSpawnOffset = 5f;
 
     private Camera mainCamera;
-    private Transform playerTransform;
 
     private void Start()
     {
@@ -18,7 +17,6 @@ public class EnemySpawner : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            playerTransform = player.transform;
             StartCoroutine(SpawnEnemies());
         }
         else

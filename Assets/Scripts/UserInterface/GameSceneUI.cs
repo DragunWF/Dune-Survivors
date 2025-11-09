@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +10,16 @@ public class GameSceneUI : MonoBehaviour
     [SerializeField] private Sprite fullHeartSprite;
     [SerializeField] private Sprite emptyHeartSprite;
 
+    // Player related UI elements
     private const int PLAYER_HEART_COUNT = 3;
     private GameObject[] playerHearts;
+
+    // Wave related UI elements
+    private TextMeshProUGUI waveText;
+    private TextMeshProUGUI waveTimerText;
+
+    // Game Stats related UI elements
+    private TextMeshProUGUI enemiesDefeatedText;
 
     private void Awake()
     {
@@ -24,7 +33,13 @@ public class GameSceneUI : MonoBehaviour
             }
             playerHearts[i] = heart;
         }
+
+        waveText = GameObject.Find("WaveText").GetComponent<TextMeshProUGUI>();
+        waveTimerText = GameObject.Find("WaveTimerText").GetComponent<TextMeshProUGUI>();
+        enemiesDefeatedText = GameObject.Find("EnemiesDefeatedText").GetComponent<TextMeshProUGUI>();
     }
+
+    #region UI Update Methods
 
     public void UpdatePlayerHealth(int currentHealth)
     {
@@ -59,4 +74,21 @@ public class GameSceneUI : MonoBehaviour
             }
         }
     }
+
+    public void UpdateWaveUI(int waveNumber, int totalWaves)
+    {
+        waveText.text = $"Wave: {waveNumber} of {totalWaves}";
+    }
+
+    public void UpdateWaveTimerUI(int timeRemaining)
+    {
+        waveTimerText.text = $"Time Left: {timeRemaining}";
+    }
+
+    public void UpdateEnemiesDefeatedUI(int enemiesDefeated)
+    {
+        enemiesDefeatedText.text = $"Enemies Defeated: {enemiesDefeated}";
+    }
+
+    #endregion
 }
