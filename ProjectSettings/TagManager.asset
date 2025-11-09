@@ -44,11 +44,11 @@ TagManager:
   - name: Background
     uniqueID: 2106193955
     locked: 0
-  - name: Player
-    uniqueID: 2653554075
-    locked: 0
   - name: Enemy
     uniqueID: 4251044011
+    locked: 0
+  - name: Player
+    uniqueID: 2653554075
     locked: 0
   - name: Projectiles
     uniqueID: 3040280631

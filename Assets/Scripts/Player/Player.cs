@@ -27,7 +27,7 @@ public sealed class Player : MonoBehaviour
     #region Serializer Fields
 
     [Tooltip("Player Stats")]
-    [SerializeField] private int health = 5;
+    [SerializeField] private int health = 3;
     [SerializeField] private float moveSpeed = 1.5f;
     [SerializeField] private float bulletSpeed = 25f;
     [SerializeField] private float damageCooldownDuration = 3.5f;
@@ -56,6 +56,7 @@ public sealed class Player : MonoBehaviour
 
     private FlashEffect flashEffect;
     private AudioPlayer audioPlayer;
+    private GameSceneUI gameSceneUI;
 
     #endregion
 
@@ -64,6 +65,7 @@ public sealed class Player : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
+        gameSceneUI = FindObjectOfType<GameSceneUI>();
 
         playerWeaponObj = GameObject.Find(PLAYER_WEAPON);
         weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
@@ -71,6 +73,11 @@ public sealed class Player : MonoBehaviour
 
         flashEffect = GetComponent<FlashEffect>();
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        gameSceneUI.UpdatePlayerHealth(health);
     }
 
     private void Update()
@@ -137,6 +144,7 @@ public sealed class Player : MonoBehaviour
             flashEffect.Flash();
             audioPlayer.PlayDamageClip();
             health--;
+            gameSceneUI.UpdatePlayerHealth(health);
             isInDamageCooldown = true;
             Invoke(nameof(ResetDamageCooldown), damageCooldownDuration);
         }
