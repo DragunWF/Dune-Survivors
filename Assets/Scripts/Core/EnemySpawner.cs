@@ -32,6 +32,8 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             Wave currentWave = waveController.GetCurrentWave();
+            Debug.Log($"Enemy Type Count: {currentWave.EnemyTypeCount}, Spawn Interval: {currentWave.SpawnInterval}, " +
+                      $"Enemy Spawn Count Per Interval: {currentWave.EnemySpawnCountPerInterval}");
 
             float randomInterval = Random.Range(currentWave.SpawnInterval * 0.75f,
                                                 currentWave.SpawnInterval * 1.25f);
