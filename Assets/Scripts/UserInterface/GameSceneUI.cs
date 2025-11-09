@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameSceneUI : MonoBehaviour
 {
-    [Tooltip("Sprites representing the player health state")]
+    [Header("Sprites representing the player health state")]
     [SerializeField] private Sprite fullHeartSprite;
     [SerializeField] private Sprite emptyHeartSprite;
 

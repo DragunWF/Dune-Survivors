@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class FlashEffect : MonoBehaviour
 {
-    [Tooltip("Flash Type")]
+    [Header("Flash Type")]
     [SerializeField] private Material flashMaterial;
     [SerializeField] private float effectDuration = 1.5f;
 

@@ -26,13 +26,14 @@ public sealed class Player : MonoBehaviour
 
     #region Serializer Fields
 
-    [Tooltip("Player Stats")]
+    [Header("Player Stats")]
     [SerializeField] private int health = 3;
     [SerializeField] private float moveSpeed = 1.5f;
+    [SerializeField] private float fireRate = 0.25f;
     [SerializeField] private float bulletSpeed = 25f;
     [SerializeField] private float damageCooldownDuration = 3.5f;
 
-    [Tooltip("Object Dependencies")]
+    [Header("Object Dependencies")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform gunTip;
 
@@ -41,6 +42,7 @@ public sealed class Player : MonoBehaviour
     #region Player State Fields
 
     private bool isInDamageCooldown = false;
+    private float nextFireTime = 0f;
 
     #endregion
 
@@ -85,9 +87,10 @@ public sealed class Player : MonoBehaviour
         Move();
         Aim();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
             Shoot();
+            nextFireTime = Time.time + fireRate;
         }
     }
 

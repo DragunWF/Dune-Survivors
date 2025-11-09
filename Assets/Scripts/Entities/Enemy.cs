@@ -47,7 +47,7 @@ public sealed class Enemy : MonoBehaviour
 
     [Header("Shotgun Attack Settings")]
     [SerializeField] private int shotgunPelletCount = 5;
-    [SerializeField] private float shotgunSpreadAngle = 45f;
+    [SerializeField] private float shotgunSpreadAngle = 75f;
 
     #endregion
 
