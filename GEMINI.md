@@ -33,3 +33,7 @@
 - **Enemy Spawning:** A wave management system to spawn enemies.
 - **UI & Upgrade Menu:** Managing the upgrade menu UI, upgrade selection, and applying upgrades.
 - **Game State:** Controlling the flow between the Main Menu, Gameplay, and Game Over states.
+
+## 4. Agent Instructions
+
+- **Build Commands:** Do not attempt to execute build commands. The user will handle compilation and verification within the Unity editor.
