@@ -18,7 +18,7 @@ public sealed class WaveController : MonoBehaviour
         // Wave difficulty settings
         waves = new Wave[]
         {
-            new(5, 2.5f, 2, 1),  // Wave 1 
+            new(30, 2.5f, 2, 1),  // Wave 1 
             new(45, 2.5f, 3, 1),  // Wave 2 
             new(70, 2.2f, 4, 2),  // Wave 3 
             new(90, 2.5f, 4, 2),  // Wave 4 
