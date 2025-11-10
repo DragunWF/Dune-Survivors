@@ -6,6 +6,15 @@ using UnityEngine.UI;
 
 public class GameSceneUI : MonoBehaviour
 {
+    #region Game Object Name Constants
+
+    private const string HEART_PREFIX = "Heart"; // Primarily used for finding heart GameObjects
+    private const string WAVE_TEXT = "WaveText";
+    private const string WAVE_TIMER_TEXT = "WaveTimerText";
+    private const string ENEMIES_DEFEATED_TEXT = "EnemiesDefeatedText";
+
+    #endregion
+
     [Header("Sprites representing the player health state")]
     [SerializeField] private Sprite fullHeartSprite;
     [SerializeField] private Sprite emptyHeartSprite;
@@ -26,17 +35,17 @@ public class GameSceneUI : MonoBehaviour
         playerHearts = new GameObject[3];
         for (int i = 0; i < PLAYER_HEART_COUNT; i++)
         {
-            GameObject heart = GameObject.Find($"Heart-{i + 1}");
+            GameObject heart = GameObject.Find($"{HEART_PREFIX}-{i + 1}");
             if (heart == null)
             {
-                Debug.LogError($"Could not find Heart-{i + 1} GameObject in the scene.");
+                Debug.LogError($"Could not find {HEART_PREFIX}-{i + 1} GameObject in the scene.");
             }
             playerHearts[i] = heart;
         }
 
-        waveText = GameObject.Find("WaveText").GetComponent<TextMeshProUGUI>();
-        waveTimerText = GameObject.Find("WaveTimerText").GetComponent<TextMeshProUGUI>();
-        enemiesDefeatedText = GameObject.Find("EnemiesDefeatedText").GetComponent<TextMeshProUGUI>();
+        waveText = GameObject.Find(WAVE_TEXT).GetComponent<TextMeshProUGUI>();
+        waveTimerText = GameObject.Find(WAVE_TIMER_TEXT).GetComponent<TextMeshProUGUI>();
+        enemiesDefeatedText = GameObject.Find(ENEMIES_DEFEATED_TEXT).GetComponent<TextMeshProUGUI>();
     }
 
     #region UI Update Methods
