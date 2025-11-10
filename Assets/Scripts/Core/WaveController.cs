@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public sealed class WaveController : MonoBehaviour
@@ -9,6 +9,8 @@ public sealed class WaveController : MonoBehaviour
     private Wave[] waves;
     private GameSceneUI gameSceneUI;
 
+    private TaskCompletionSource<bool> nextWaveTask;
+
     private void Awake()
     {
         gameSceneUI = FindObjectOfType<GameSceneUI>();
@@ -16,7 +18,7 @@ public sealed class WaveController : MonoBehaviour
         // Wave difficulty settings
         waves = new Wave[]
         {
-            new(30, 2.5f, 2, 1),  // Wave 1 
+            new(5, 2.5f, 2, 1),  // Wave 1 
             new(45, 2.5f, 3, 1),  // Wave 2 
             new(70, 2.2f, 4, 2),  // Wave 3 
             new(90, 2.5f, 4, 2),  // Wave 4 
@@ -50,9 +52,11 @@ public sealed class WaveController : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 secondsPassed++;
             }
-            // After a wave ends, there might be a brief pause before the next one starts.
-            // For now, we'll just proceed to the next wave immediately.
-            // If there's a "wave complete" screen or pause, it would go here.
+
+            gameSceneUI.ShowWaveCompleteText();
+
+            nextWaveTask = new TaskCompletionSource<bool>();
+            yield return new WaitUntil(() => nextWaveTask.Task.IsCompleted);
         }
         // All waves completed. Handle game win condition or endless mode.
         Debug.Log("All waves completed!");
@@ -72,5 +76,10 @@ public sealed class WaveController : MonoBehaviour
         {
             return waves[^1]; // Return last wave if exceeded
         }
+    }
+
+    public void StartNextWave()
+    {
+        nextWaveTask?.TrySetResult(true);
     }
 }

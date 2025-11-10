@@ -31,6 +31,9 @@ public class UpgradesMenuUI : MonoBehaviour
     private TextMeshProUGUI priceText;
     private TextMeshProUGUI pointsText;
 
+    private WaveController waveController;
+    private GameSceneUI gameSceneUI;
+
     private void Awake()
     {
         upgradesMenuPanel = GameObject.Find(UPGRADES_MENU_PANEL);
@@ -46,6 +49,9 @@ public class UpgradesMenuUI : MonoBehaviour
 
         priceText = GameObject.Find(PRICE_TEXT).GetComponent<TextMeshProUGUI>();
         pointsText = GameObject.Find(POINTS_TEXT).GetComponent<TextMeshProUGUI>();
+
+        waveController = FindObjectOfType<WaveController>();
+        gameSceneUI = FindObjectOfType<GameSceneUI>();
     }
 
     private void Start()
@@ -55,7 +61,7 @@ public class UpgradesMenuUI : MonoBehaviour
 
     #region Update UI Methods
 
-    public void ShowUpgradesMenu()
+    public void EnableUpgradesMenu()
     {
         if (upgradesMenuPanel != null)
         {
@@ -136,7 +142,9 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void OnNextWaveButtonClick()
     {
-
+        waveController.StartNextWave();
+        gameSceneUI.HideWaveCompleteText();
+        HideUpgradesMenu();
     }
 
     public void OnFireRateUpgradeButtonClick()
