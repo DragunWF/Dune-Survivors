@@ -31,7 +31,7 @@ public sealed class Player : MonoBehaviour
     [Header("Player Stats")]
     [SerializeField] private int health = 3;
     [SerializeField] private float moveSpeed = 1.5f;
-    [SerializeField] private float fireRate = 0.25f;
+    [SerializeField] private float fireRate = 0.7f;
     [SerializeField] private int multiShotCount = 1;
     [SerializeField] private float bulletSpeed = 25f;
     [SerializeField] private float damageCooldownDuration = 3.5f;

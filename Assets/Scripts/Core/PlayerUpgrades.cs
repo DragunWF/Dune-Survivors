@@ -34,25 +34,25 @@ public class PlayerUpgrades : MonoBehaviour
 
     #region Fire Rate Methods
 
-    public void GetFireRate()
+    public void SetFireRateByLevel()
     {
         // Indicates the current fire rate value per level for the player
         switch (FireRateLevel)
         {
             case 1:
-                player.SetFireRate(1.0f);
+                player.SetFireRate(0.7f);
                 break;
             case 2:
-                player.SetFireRate(0.8f);
+                player.SetFireRate(0.5f);
                 break;
             case 3:
-                player.SetFireRate(0.6f);
+                player.SetFireRate(0.35f);
                 break;
             case 4:
-                player.SetFireRate(0.4f);
+                player.SetFireRate(0.15f);
                 break;
             case 5:
-                player.SetFireRate(0.2f);
+                player.SetFireRate(0.05f);
                 break;
             default:
                 Debug.LogError("Invalid Fire Rate Level");
@@ -84,7 +84,8 @@ public class PlayerUpgrades : MonoBehaviour
         if (FireRateLevel < MAX_FIRE_RATE_LEVEL)
         {
             FireRateLevel++;
-            GetFireRate();
+            SetFireRateByLevel();
+            gameStats.SubtractPoints(GetFireRateUpgradeCost());
         }
     }
 
@@ -92,7 +93,7 @@ public class PlayerUpgrades : MonoBehaviour
 
     #region Multi-Shot Methods
 
-    public void GetMultiShot()
+    public void SetMultiShotByLevel()
     {
         // Indicates the current multi-shot projectile count per level for the player
         switch (MultiShotLevel)
@@ -117,7 +118,8 @@ public class PlayerUpgrades : MonoBehaviour
         if (MultiShotLevel < MAX_MULTI_SHOT_LEVEL)
         {
             MultiShotLevel++;
-            GetMultiShot();
+            SetMultiShotByLevel();
+            gameStats.SubtractPoints(GetMultiShotUpgradeCost());
         }
     }
 
@@ -142,7 +144,12 @@ public class PlayerUpgrades : MonoBehaviour
 
     public int GetMaxHealthUpgradeCost() => 30;
     public int GetHealCost() => 10;
-    public void HealToFull() => player.HealToFull();
+
+    public void HealToFull()
+    {
+        player.HealToFull();
+        gameStats.SubtractPoints(GetHealCost());
+    }
 
     public void UpgradeMaxHealth()
     {
@@ -150,8 +157,17 @@ public class PlayerUpgrades : MonoBehaviour
         {
             MaxHealthCapacity++;
             player.SetMaxHealth(MaxHealthCapacity);
+            gameStats.SubtractPoints(GetMaxHealthUpgradeCost());
         }
     }
+
+    #endregion
+
+    #region
+
+    public int GetMaxFireRateLevel() => MAX_FIRE_RATE_LEVEL;
+    public int GetMaxMultiShotLevel() => MAX_MULTI_SHOT_LEVEL;
+    public int GetMaxHealthCapacity() => MAX_HEALTH_CAPACITY;
 
     #endregion
 }

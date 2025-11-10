@@ -792,7 +792,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 234497437}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 14312204}
+        m_TargetAssemblyTypeName: UpgradesMenuUI, Assembly-CSharp
+        m_MethodName: OnHealToFullButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &234497437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2622,7 +2634,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 681328700}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 14312204}
+        m_TargetAssemblyTypeName: UpgradesMenuUI, Assembly-CSharp
+        m_MethodName: OnMultiShotUpgradeButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &681328700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24862,7 +24886,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 864902306}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 14312204}
+        m_TargetAssemblyTypeName: UpgradesMenuUI, Assembly-CSharp
+        m_MethodName: OnFireRateUpgradeButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &864902306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25633,7 +25669,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1083024486}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 14312204}
+        m_TargetAssemblyTypeName: UpgradesMenuUI, Assembly-CSharp
+        m_MethodName: OnMaxHealthUpgradeButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1083024486
 MonoBehaviour:
   m_ObjectHideFlags: 0

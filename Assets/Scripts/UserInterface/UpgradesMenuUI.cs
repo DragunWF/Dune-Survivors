@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -95,30 +96,42 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void UpdateFireRateUpgradeText(int level)
     {
+        if (level >= playerUpgrades.GetFireRateUpgradeCost())
+        {
+            fireRateLevelText.text = "Maxed";
+            return;
+        }
         fireRateLevelText.text = $"Level {level}";
     }
 
     public void UpdateMultiShotUpgradeText(int level)
     {
+        if (level >= playerUpgrades.GetMultiShotUpgradeCost())
+        {
+            multiShotLevelText.text = "Maxed";
+            return;
+        }
         multiShotLevelText.text = $"Level {level}";
     }
 
     public void UpdateMaxHealthUpgradeText(int level)
     {
+        if (level >= playerUpgrades.GetMaxHealthCapacity())
+        {
+            maxHealthText.text = "Maxed";
+            return;
+        }
         maxHealthText.text = $"Level {level}";
     }
 
     public void UpdateHealthStatusText(int currentHealth, int maxHealth)
     {
-        if (healthStatusText != null)
+        if (currentHealth >= maxHealth)
         {
-            if (currentHealth >= maxHealth)
-            {
-                healthStatusText.text = "Full";
-                return;
-            }
-            healthStatusText.text = $"{currentHealth}/{maxHealth}";
+            healthStatusText.text = "Full";
+            return;
         }
+        healthStatusText.text = $"{currentHealth}/{maxHealth}";
     }
 
     public void UpdatePointsText(int points)
@@ -159,63 +172,85 @@ public class UpgradesMenuUI : MonoBehaviour
     {
         if (gameStats.GetPoints() < playerUpgrades.GetFireRateUpgradeCost())
         {
-            // TODO: Play a sound
-            Debug.Log("Not enough points to upgrade fire rate");
+            DisplayErrorText("Not enough points");
             return;
         }
+        if (playerUpgrades.FireRateLevel >= playerUpgrades.GetMaxFireRateLevel())
+        {
+            DisplayErrorText("Max Level Reached");
+            return;
+        }
+        audioPlayer.PlayUpgradeClip();
         playerUpgrades.UpgradeFireRate();
+        UpdateFireRateUpgradeText(playerUpgrades.FireRateLevel);
+        UpdateAllPointsText();
     }
 
     public void OnMultiShotUpgradeButtonClick()
     {
         if (gameStats.GetPoints() < playerUpgrades.GetMultiShotUpgradeCost())
         {
-            // TODO: Play a sound
-            Debug.Log("Not enough points to upgrade multi-shot");
+            DisplayErrorText("Not enough points");
             return;
         }
+        if (playerUpgrades.MultiShotLevel >= playerUpgrades.GetMaxMultiShotLevel())
+        {
+            DisplayErrorText("Max Level Reached");
+            return;
+        }
+        audioPlayer.PlayUpgradeClip();
         playerUpgrades.UpgradeMultiShot();
+        UpdateMultiShotUpgradeText(playerUpgrades.MultiShotLevel);
+        UpdateAllPointsText();
     }
 
     public void OnMaxHealthUpgradeButtonClick()
     {
         if (gameStats.GetPoints() < playerUpgrades.GetMaxHealthUpgradeCost())
         {
-            // TODO: Play a sound
-            Debug.Log("Not enough points to upgrade max health");
+            DisplayErrorText("Not enough points");
             return;
         }
+        if (playerUpgrades.MaxHealthCapacity >= playerUpgrades.GetMaxHealthCapacity())
+        {
+            DisplayErrorText("Max Level Reached");
+            return;
+        }
+        audioPlayer.PlayUpgradeClip();
         playerUpgrades.UpgradeMaxHealth();
+        UpdateMaxHealthUpgradeText(playerUpgrades.MaxHealthCapacity);
+        UpdateAllPointsText();
     }
 
     public void OnHealToFullButtonClick()
     {
         if (gameStats.GetPoints() < playerUpgrades.GetHealCost())
         {
-            // TODO: Play a sound
-            Debug.Log("Not enough points to heal to full");
+            DisplayErrorText("Not enough points");
             return;
         }
+        if (player.GetHealth() >= playerUpgrades.MaxHealthCapacity)
+        {
+            DisplayErrorText("Health is already full");
+            return;
+        }
+        audioPlayer.PlayUpgradeClip();
         playerUpgrades.HealToFull();
+        UpdateHealthStatusText(player.GetHealth(), playerUpgrades.MaxHealthCapacity);
+        UpdateAllPointsText();
     }
 
     #endregion
 
-    #region Button Hover Methods
-
-    public void OnFireRateUpgradeButtonHover(bool isHovering)
+    private void DisplayErrorText(string errorMessage)
     {
-        if (isHovering)
-        {
-            UpdatePriceText(playerUpgrades.GetFireRateUpgradeCost());
-        }
-        else
-        {
-            UpdatePriceText();
-        }
+        audioPlayer.PlayErrorClip();
+        priceText.text = errorMessage;
     }
 
-    // Implement hover methods for the other buttons
-
-    #endregion
+    private void UpdateAllPointsText()
+    {
+        gameSceneUI.UpdatePointsText(gameStats.GetPoints());
+        UpdatePointsText(gameStats.GetPoints());
+    }
 }

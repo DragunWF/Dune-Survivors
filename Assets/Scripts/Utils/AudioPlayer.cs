@@ -6,6 +6,9 @@ public sealed class AudioPlayer : MonoBehaviour
 {
     [SerializeField] private AudioClip playerShootClip;
     [SerializeField] private AudioClip damageClip;
+    [SerializeField] private AudioClip clickClip;
+    [SerializeField] private AudioClip upgradeClip;
+    [SerializeField] private AudioClip errorClip;
 
     #region Audio Playback
 
@@ -22,6 +25,30 @@ public sealed class AudioPlayer : MonoBehaviour
         if (damageClip != null)
         {
             PlayClip(damageClip, 0.95f);
+        }
+    }
+
+    public void PlayClickClip()
+    {
+        if (clickClip != null)
+        {
+            PlayClip(clickClip, 1f);
+        }
+    }
+
+    public void PlayUpgradeClip()
+    {
+        if (upgradeClip != null)
+        {
+            PlayClip(upgradeClip, 1f);
+        }
+    }
+
+    public void PlayErrorClip()
+    {
+        if (errorClip != null)
+        {
+            PlayClip(errorClip, 0.85f);
         }
     }
 
