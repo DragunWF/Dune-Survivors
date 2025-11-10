@@ -9,6 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(FlashEffect))]
 [RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(PlayerUpgrades))]
 public sealed class Player : MonoBehaviour
 {
     #region Animator Constant Parameters
@@ -59,6 +60,7 @@ public sealed class Player : MonoBehaviour
     private Animator animator;
     private Vector2 inputVector;
 
+    private PlayerUpgrades playerUpgrades;
     private FlashEffect flashEffect;
     private AudioPlayer audioPlayer;
     private GameSceneUI gameSceneUI;

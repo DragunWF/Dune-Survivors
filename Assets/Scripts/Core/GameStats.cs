@@ -6,6 +6,7 @@ public class GameStats : MonoBehaviour
 {
     private int enemiesDefeated = 0;
     private int points = 0; // Used for purchasing upgrades
+
     private GameSceneUI gameSceneUI;
 
     private void Awake()
@@ -33,12 +34,14 @@ public class GameStats : MonoBehaviour
     public void AddPoints(int amount)
     {
         points += amount;
+        gameSceneUI.UpdatePointsText(points);
     }
 
     public void SubtractPoints(int amount)
     {
         points -= amount;
         if (points < 0) points = 0;
+        gameSceneUI.UpdatePointsText(points);
     }
 
     #endregion

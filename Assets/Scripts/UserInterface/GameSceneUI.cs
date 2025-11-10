@@ -9,6 +9,7 @@ public class GameSceneUI : MonoBehaviour
     #region Game Object Name Constants
 
     private const string HEART_PREFIX = "Heart"; // Primarily used for finding heart GameObjects
+    private const string POINTS_TEXT = "PointsText";
     private const string WAVE_TEXT = "WaveText";
     private const string WAVE_TIMER_TEXT = "WaveTimerText";
     private const string ENEMIES_DEFEATED_TEXT = "EnemiesDefeatedText";
@@ -33,6 +34,7 @@ public class GameSceneUI : MonoBehaviour
     private TextMeshProUGUI waveCompleteText;
 
     // Game Stats related UI elements
+    private TextMeshProUGUI pointsText;
     private TextMeshProUGUI enemiesDefeatedText;
 
     private UpgradesMenuUI upgradesMenuUI;
@@ -50,6 +52,7 @@ public class GameSceneUI : MonoBehaviour
             playerHearts[i] = heart;
         }
 
+        pointsText = GameObject.Find(POINTS_TEXT).GetComponent<TextMeshProUGUI>();
         waveText = GameObject.Find(WAVE_TEXT).GetComponent<TextMeshProUGUI>();
         waveTimerText = GameObject.Find(WAVE_TIMER_TEXT).GetComponent<TextMeshProUGUI>();
         enemiesDefeatedText = GameObject.Find(ENEMIES_DEFEATED_TEXT).GetComponent<TextMeshProUGUI>();
@@ -140,6 +143,11 @@ public class GameSceneUI : MonoBehaviour
     public void UpdateEnemiesDefeatedUI(int enemiesDefeated)
     {
         enemiesDefeatedText.text = $"Enemies Defeated: {enemiesDefeated}";
+    }
+
+    public void UpdatePointsText(int points)
+    {
+        pointsText.text = $"Points: {points}";
     }
 
     #endregion

@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UIElements;
 
+[RequireComponent(typeof(Player))]
 public class PlayerUpgrades : MonoBehaviour
 {
     #region Upgrade Limits
@@ -21,10 +24,12 @@ public class PlayerUpgrades : MonoBehaviour
     #endregion
 
     private Player player;
+    private GameStats gameStats;
 
     private void Awake()
     {
-        player = FindObjectOfType<Player>();
+        player = GetComponent<Player>();
+        gameStats = FindObjectOfType<GameStats>();
     }
 
     #region Fire Rate Methods
@@ -128,6 +133,23 @@ public class PlayerUpgrades : MonoBehaviour
             default:
                 Debug.LogError("Invalid Multi-Shot Level for Cost Calculation");
                 return int.MaxValue;
+        }
+    }
+
+    #endregion
+
+    #region Max Health Upgrade and Healing Methods
+
+    public int GetMaxHealthUpgradeCost() => 30;
+    public int GetHealCost() => 10;
+    public void HealToFull() => player.HealToFull();
+
+    public void UpgradeMaxHealth()
+    {
+        if (MaxHealthCapacity < MAX_HEALTH_CAPACITY)
+        {
+            MaxHealthCapacity++;
+            player.SetMaxHealth(MaxHealthCapacity);
         }
     }
 

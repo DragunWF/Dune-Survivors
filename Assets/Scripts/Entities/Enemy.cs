@@ -22,6 +22,7 @@ public sealed class Enemy : MonoBehaviour
     [SerializeField] private int health = 3;
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float deathAnimationDuration = 0.5f;
+    [SerializeField] private int pointsGainedOnDeath = 5;
 
     [Header("Knockback Settings")]
     [SerializeField] private float takeDamageKnockbackSpeed = 4.0f;
@@ -237,6 +238,7 @@ public sealed class Enemy : MonoBehaviour
 
         animator.SetBool(IS_DEAD, true);
         gameStats.IncrementEnemiesDefeated();
+        gameStats.AddPoints(pointsGainedOnDeath);
 
         StartCoroutine(DestroyAfterAnimation());
     }

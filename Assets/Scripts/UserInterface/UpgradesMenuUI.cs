@@ -17,7 +17,7 @@ public class UpgradesMenuUI : MonoBehaviour
     private const string HEALTH_STATUS_TEXT = "HealthStatusText";
 
     private const string PRICE_TEXT = "PriceText";
-    private const string POINTS_TEXT = "PointsText";
+    private const string POINTS_TEXT = "UpgradePointsText";
 
     #endregion
 
@@ -32,7 +32,11 @@ public class UpgradesMenuUI : MonoBehaviour
     private TextMeshProUGUI pointsText;
 
     private WaveController waveController;
+    private PlayerUpgrades playerUpgrades;
+    private Player player;
+    private GameStats gameStats;
     private GameSceneUI gameSceneUI;
+    private AudioPlayer audioPlayer;
 
     private void Awake()
     {
@@ -50,8 +54,12 @@ public class UpgradesMenuUI : MonoBehaviour
         priceText = GameObject.Find(PRICE_TEXT).GetComponent<TextMeshProUGUI>();
         pointsText = GameObject.Find(POINTS_TEXT).GetComponent<TextMeshProUGUI>();
 
+        playerUpgrades = FindObjectOfType<PlayerUpgrades>();
+        player = FindObjectOfType<Player>();
         waveController = FindObjectOfType<WaveController>();
+        gameStats = FindObjectOfType<GameStats>();
         gameSceneUI = FindObjectOfType<GameSceneUI>();
+        audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     private void Start()
@@ -67,39 +75,37 @@ public class UpgradesMenuUI : MonoBehaviour
         {
             upgradesMenuPanel.SetActive(true);
             Time.timeScale = 0f; // Pause the game
+
+            UpdatePointsText(gameStats.GetPoints());
+            UpdateFireRateUpgradeText(playerUpgrades.FireRateLevel);
+            UpdateMultiShotUpgradeText(playerUpgrades.MultiShotLevel);
+            UpdateMaxHealthUpgradeText(playerUpgrades.MaxHealthCapacity);
+            UpdateHealthStatusText(player.GetHealth(), playerUpgrades.MaxHealthCapacity);
+        }
+        else
+        {
+            Debug.LogError($"Could not find {UPGRADES_MENU_PANEL} GameObject in the scene.");
         }
     }
 
     public void HideUpgradesMenu()
     {
-        if (upgradesMenuPanel != null)
-        {
-            upgradesMenuPanel.SetActive(false);
-        }
+        upgradesMenuPanel.SetActive(false);
     }
 
     public void UpdateFireRateUpgradeText(int level)
     {
-        if (fireRateLevelText != null)
-        {
-            fireRateLevelText.text = $"Level {level}";
-        }
+        fireRateLevelText.text = $"Level {level}";
     }
 
     public void UpdateMultiShotUpgradeText(int level)
     {
-        if (multiShotLevelText != null)
-        {
-            multiShotLevelText.text = $"Level {level}";
-        }
+        multiShotLevelText.text = $"Level {level}";
     }
 
     public void UpdateMaxHealthUpgradeText(int level)
     {
-        if (maxHealthText != null)
-        {
-            maxHealthText.text = $"Level {level}";
-        }
+        maxHealthText.text = $"Level {level}";
     }
 
     public void UpdateHealthStatusText(int currentHealth, int maxHealth)
@@ -120,7 +126,7 @@ public class UpgradesMenuUI : MonoBehaviour
         if (pointsText != null)
         {
             string pointsWord = points == 1 ? "Point" : "Points";
-            pointsText.text = $"{points} {pointsWord}";
+            pointsText.text = $"You have {points} {pointsWord}";
         }
     }
 
@@ -151,23 +157,65 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void OnFireRateUpgradeButtonClick()
     {
-
+        if (gameStats.GetPoints() < playerUpgrades.GetFireRateUpgradeCost())
+        {
+            // TODO: Play a sound
+            Debug.Log("Not enough points to upgrade fire rate");
+            return;
+        }
+        playerUpgrades.UpgradeFireRate();
     }
 
     public void OnMultiShotUpgradeButtonClick()
     {
-
+        if (gameStats.GetPoints() < playerUpgrades.GetMultiShotUpgradeCost())
+        {
+            // TODO: Play a sound
+            Debug.Log("Not enough points to upgrade multi-shot");
+            return;
+        }
+        playerUpgrades.UpgradeMultiShot();
     }
 
     public void OnMaxHealthUpgradeButtonClick()
     {
-
+        if (gameStats.GetPoints() < playerUpgrades.GetMaxHealthUpgradeCost())
+        {
+            // TODO: Play a sound
+            Debug.Log("Not enough points to upgrade max health");
+            return;
+        }
+        playerUpgrades.UpgradeMaxHealth();
     }
 
     public void OnHealToFullButtonClick()
     {
-
+        if (gameStats.GetPoints() < playerUpgrades.GetHealCost())
+        {
+            // TODO: Play a sound
+            Debug.Log("Not enough points to heal to full");
+            return;
+        }
+        playerUpgrades.HealToFull();
     }
+
+    #endregion
+
+    #region Button Hover Methods
+
+    public void OnFireRateUpgradeButtonHover(bool isHovering)
+    {
+        if (isHovering)
+        {
+            UpdatePriceText(playerUpgrades.GetFireRateUpgradeCost());
+        }
+        else
+        {
+            UpdatePriceText();
+        }
+    }
+
+    // Implement hover methods for the other buttons
 
     #endregion
 }
