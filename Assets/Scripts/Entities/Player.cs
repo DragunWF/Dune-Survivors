@@ -88,6 +88,11 @@ public sealed class Player : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0f) // If game is paused, do not process input for movement or aiming
+        {
+            return;
+        }
+
         Move();
         Aim();
 

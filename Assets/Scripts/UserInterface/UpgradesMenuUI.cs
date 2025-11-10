@@ -66,6 +66,7 @@ public class UpgradesMenuUI : MonoBehaviour
         if (upgradesMenuPanel != null)
         {
             upgradesMenuPanel.SetActive(true);
+            Time.timeScale = 0f; // Pause the game
         }
     }
 
@@ -142,6 +143,7 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void OnNextWaveButtonClick()
     {
+        Time.timeScale = 1f; // Resume the game
         waveController.StartNextWave();
         gameSceneUI.HideWaveCompleteText();
         HideUpgradesMenu();
