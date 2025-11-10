@@ -36,6 +36,9 @@ public sealed class Player : MonoBehaviour
     [SerializeField] private float bulletSpeed = 25f;
     [SerializeField] private float damageCooldownDuration = 3.5f;
 
+    [Header("Shotgun Attack Settings")]
+    [SerializeField] private float shotgunSpreadAngle = 15f;
+
     [Header("Object Dependencies")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform gunTip;
@@ -144,11 +147,18 @@ public sealed class Player : MonoBehaviour
     {
         audioPlayer.PlayPlayerShootClip();
 
-        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
-        var bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
-        var direction = (Vector2)(mousePosition - gunTip.position);
-        bulletRigidbody.velocity = direction.normalized * bulletSpeed;
+        for (int i = 0; i < multiShotCount; i++)
+        {
+            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var direction = (Vector2)(mousePosition - gunTip.position);
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            var spread = UnityEngine.Random.Range(-shotgunSpreadAngle / 2, shotgunSpreadAngle / 2);
+            var rotation = Quaternion.Euler(0, 0, angle + spread);
+
+            var bullet = Instantiate(bulletPrefab, gunTip.position, rotation);
+            var bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+            bulletRigidbody.velocity = (rotation * Vector2.right).normalized * bulletSpeed;
+        }
     }
 
     public void TakeDamage()
