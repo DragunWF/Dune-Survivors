@@ -168,6 +168,7 @@ public sealed class Player : MonoBehaviour
 
     private void Death()
     {
+        rigidBody.velocity = Vector2.zero;
         animator.SetBool(IS_DEAD, true);
         // Disable player controls
         enabled = false;
