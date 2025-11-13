@@ -10,7 +10,7 @@ public class PlayerUpgrades : MonoBehaviour
     #region Upgrade Limits
 
     private const int MAX_FIRE_RATE_LEVEL = 5;
-    private const int MAX_MULTI_SHOT_LEVEL = 3;
+    private const int MAX_MULTI_SHOT_LEVEL = 5;
     private const int MAX_HEALTH_CAPACITY = 5;
 
     #endregion
@@ -55,7 +55,6 @@ public class PlayerUpgrades : MonoBehaviour
                 player.SetFireRate(0.05f);
                 break;
             default:
-                Debug.LogError("Invalid Fire Rate Level");
                 break;
         }
     }
@@ -74,7 +73,6 @@ public class PlayerUpgrades : MonoBehaviour
             case 4:
                 return 100;
             default:
-                Debug.LogError("Invalid Fire Rate Level for Cost Calculation");
                 return int.MaxValue;
         }
     }
@@ -96,21 +94,11 @@ public class PlayerUpgrades : MonoBehaviour
     public void SetMultiShotByLevel()
     {
         // Indicates the current multi-shot projectile count per level for the player
-        switch (MultiShotLevel)
+        if (MultiShotLevel > MAX_MULTI_SHOT_LEVEL)
         {
-            case 1:
-                player.SetMultiShot(1);
-                break;
-            case 2:
-                player.SetMultiShot(3);
-                break;
-            case 3:
-                player.SetMultiShot(5);
-                break;
-            default:
-                Debug.LogError("Invalid Multi-Shot Level");
-                break;
+            MultiShotLevel = MAX_MULTI_SHOT_LEVEL;
         }
+        player.SetMultiShot(MultiShotLevel);
     }
 
     public void UpgradeMultiShot()
@@ -132,8 +120,13 @@ public class PlayerUpgrades : MonoBehaviour
                 return 75;
             case 2:
                 return 200;
+            case 3:
+                return 300;
+            case 4:
+                return 400;
+            case 5:
+                return 500;
             default:
-                Debug.LogError("Invalid Multi-Shot Level for Cost Calculation");
                 return int.MaxValue;
         }
     }

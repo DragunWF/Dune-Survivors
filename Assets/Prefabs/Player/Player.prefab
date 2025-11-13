@@ -139,10 +139,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 5
-  fireRate: 0.25
+  fireRate: 0.7
   multiShotCount: 1
   bulletSpeed: 12
   damageCooldownDuration: 3.5
+  shotgunSpreadAngle: 15
   bulletPrefab: {fileID: 3024618196392268057, guid: 0815d591ae44d4d4b92bd1c12121bde2, type: 3}
   gunTip: {fileID: 0}
 --- !u!114 &4728527296389967664

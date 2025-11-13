@@ -96,7 +96,7 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void UpdateFireRateUpgradeText(int level)
     {
-        if (level >= playerUpgrades.GetFireRateUpgradeCost())
+        if (level >= playerUpgrades.GetMaxFireRateLevel())
         {
             fireRateLevelText.text = "Maxed";
             return;
@@ -106,7 +106,7 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void UpdateMultiShotUpgradeText(int level)
     {
-        if (level >= playerUpgrades.GetMultiShotUpgradeCost())
+        if (level >= playerUpgrades.GetMaxMultiShotLevel())
         {
             multiShotLevelText.text = "Maxed";
             return;
@@ -216,10 +216,12 @@ public class UpgradesMenuUI : MonoBehaviour
             DisplayErrorText("Max Level Reached");
             return;
         }
+
         audioPlayer.PlayUpgradeClip();
         playerUpgrades.UpgradeMaxHealth();
         UpdateMaxHealthUpgradeText(playerUpgrades.MaxHealthCapacity);
         UpdateAllPointsText();
+        gameSceneUI.UpdateMaxHealthHearts();
     }
 
     public void OnHealToFullButtonClick()

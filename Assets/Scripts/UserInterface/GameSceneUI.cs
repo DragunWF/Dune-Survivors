@@ -25,7 +25,6 @@ public class GameSceneUI : MonoBehaviour
     [SerializeField] private Sprite emptyHeartSprite;
 
     // Player related UI elements
-    private const int PLAYER_HEART_COUNT = 3;
     private GameObject[] playerHearts;
 
     // Wave related UI elements
@@ -37,19 +36,29 @@ public class GameSceneUI : MonoBehaviour
     private TextMeshProUGUI pointsText;
     private TextMeshProUGUI enemiesDefeatedText;
 
+    private Player player;
+    private PlayerUpgrades playerUpgrades;
     private UpgradesMenuUI upgradesMenuUI;
 
     private void Awake()
     {
-        playerHearts = new GameObject[3];
-        for (int i = 0; i < PLAYER_HEART_COUNT; i++)
+        player = FindObjectOfType<Player>();
+        playerUpgrades = FindObjectOfType<PlayerUpgrades>();
+
+        playerHearts = new GameObject[playerUpgrades.GetMaxHealthCapacity()];
+        for (int i = 0, nth = 1; i < playerUpgrades.GetMaxHealthCapacity(); i++, nth++)
         {
-            GameObject heart = GameObject.Find($"{HEART_PREFIX}-{i + 1}");
+            GameObject heart = GameObject.Find($"{HEART_PREFIX}-{nth}");
             if (heart == null)
             {
-                Debug.LogError($"Could not find {HEART_PREFIX}-{i + 1} GameObject in the scene.");
+                Debug.LogError($"Could not find {HEART_PREFIX}-{nth} GameObject in the scene.");
             }
             playerHearts[i] = heart;
+
+            if (nth > player.GetHealth())
+            {
+                playerHearts[i].SetActive(false);
+            }
         }
 
         pointsText = GameObject.Find(POINTS_TEXT).GetComponent<TextMeshProUGUI>();
@@ -104,7 +113,7 @@ public class GameSceneUI : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < PLAYER_HEART_COUNT; i++)
+        for (int i = 0; i < playerUpgrades.GetMaxHealthCapacity(); i++)
         {
             if (playerHearts[i] == null)
             {
@@ -127,6 +136,14 @@ public class GameSceneUI : MonoBehaviour
             {
                 heartImage.sprite = emptyHeartSprite;
             }
+        }
+    }
+
+    public void UpdateMaxHealthHearts()
+    {
+        for (int i = 0; i < playerUpgrades.MaxHealthCapacity; i++)
+        {
+            playerHearts[i].SetActive(true);
         }
     }
 

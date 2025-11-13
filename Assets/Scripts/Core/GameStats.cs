@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameStats : MonoBehaviour
 {
+    [SerializeField] private int points = 0; // Used for purchasing upgrades
     private int enemiesDefeated = 0;
-    private int points = 0; // Used for purchasing upgrades
 
     private GameSceneUI gameSceneUI;
 

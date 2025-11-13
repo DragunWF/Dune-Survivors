@@ -25,10 +25,13 @@ public class UpgradeButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         int cost = 0;
+        bool isMaxed = false;
+
         switch (upgradeType)
         {
             case UpgradeType.FireRate:
                 cost = playerUpgrades.GetFireRateUpgradeCost();
+                isMaxed = playerUpgrades.FireRateLevel >= playerUpgrades.GetMaxFireRateLevel();
                 break;
             case UpgradeType.MultiShot:
                 cost = playerUpgrades.GetMultiShotUpgradeCost();
@@ -40,7 +43,15 @@ public class UpgradeButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerE
                 cost = playerUpgrades.GetHealCost();
                 break;
         }
-        upgradesMenuUI.UpdatePriceText(cost);
+
+        if (isMaxed)
+        {
+
+        }
+        else
+        {
+            upgradesMenuUI.UpdatePriceText(cost);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
