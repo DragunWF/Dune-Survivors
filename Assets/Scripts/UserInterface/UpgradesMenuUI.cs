@@ -114,14 +114,14 @@ public class UpgradesMenuUI : MonoBehaviour
         multiShotLevelText.text = $"Level {level}";
     }
 
-    public void UpdateMaxHealthUpgradeText(int level)
+    public void UpdateMaxHealthUpgradeText(int capacity)
     {
-        if (level >= playerUpgrades.GetMaxHealthCapacity())
+        if (capacity >= playerUpgrades.GetMaxHealthCapacity())
         {
             maxHealthText.text = "Maxed";
             return;
         }
-        maxHealthText.text = $"Level {level}";
+        maxHealthText.text = $"Capacity {capacity}";
     }
 
     public void UpdateHealthStatusText(int currentHealth, int maxHealth)
@@ -145,15 +145,17 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void UpdatePriceText(int price = 0)
     {
-        if (priceText != null)
+        if (price == 0)
         {
-            if (price == 0)
-            {
-                priceText.text = "Hover over a button to view price";
-                return;
-            }
-            priceText.text = $"Price: {price} Points";
+            priceText.text = "Hover over a button to view price";
+            return;
         }
+        priceText.text = $"Price: {price} Points";
+    }
+
+    public void UpdatePriceText(string text)
+    {
+        priceText.text = text;
     }
 
     #endregion

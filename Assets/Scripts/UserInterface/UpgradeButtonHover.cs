@@ -46,7 +46,7 @@ public class UpgradeButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerE
 
         if (isMaxed)
         {
-
+            upgradesMenuUI.UpdatePriceText("Already Maxed!");
         }
         else
         {
