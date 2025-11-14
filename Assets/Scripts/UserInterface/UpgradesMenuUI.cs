@@ -167,6 +167,7 @@ public class UpgradesMenuUI : MonoBehaviour
         Time.timeScale = 1f; // Resume the game
         waveController.StartNextWave();
         gameSceneUI.HideWaveCompleteText();
+        audioPlayer.PlayClickClip();
         HideUpgradesMenu();
     }
 

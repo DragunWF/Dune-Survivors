@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public sealed class AudioPlayer : MonoBehaviour
 {
     [SerializeField] private AudioClip playerShootClip;
@@ -9,6 +10,14 @@ public sealed class AudioPlayer : MonoBehaviour
     [SerializeField] private AudioClip clickClip;
     [SerializeField] private AudioClip upgradeClip;
     [SerializeField] private AudioClip errorClip;
+
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.ignoreListenerPause = true;
+    }
 
     #region Audio Playback
 
@@ -32,7 +41,7 @@ public sealed class AudioPlayer : MonoBehaviour
     {
         if (clickClip != null)
         {
-            PlayClip(clickClip, 1f);
+            PlayClip(clickClip, 3.5f);
         }
     }
 
@@ -40,7 +49,7 @@ public sealed class AudioPlayer : MonoBehaviour
     {
         if (upgradeClip != null)
         {
-            PlayClip(upgradeClip, 1f);
+            PlayClip(upgradeClip, 2.25f);
         }
     }
 
@@ -48,7 +57,7 @@ public sealed class AudioPlayer : MonoBehaviour
     {
         if (errorClip != null)
         {
-            PlayClip(errorClip, 0.85f);
+            PlayClip(errorClip, 2.5f);
         }
     }
 
@@ -58,8 +67,7 @@ public sealed class AudioPlayer : MonoBehaviour
     {
         if (clip != null)
         {
-            Vector2 cameraPos = Camera.main.transform.position;
-            AudioSource.PlayClipAtPoint(clip, cameraPos, volume);
+            audioSource.PlayOneShot(clip, volume);
         }
     }
 }
