@@ -62,19 +62,14 @@ public class PlayerUpgrades : MonoBehaviour
     public int GetFireRateUpgradeCost()
     {
         // Returns the cost in points for the next fire rate upgrade
-        switch (FireRateLevel)
+        return FireRateLevel switch
         {
-            case 1:
-                return 25;
-            case 2:
-                return 50;
-            case 3:
-                return 75;
-            case 4:
-                return 100;
-            default:
-                return int.MaxValue;
-        }
+            1 => 25,
+            2 => 50,
+            3 => 75,
+            4 => 100,
+            _ => 0,
+        };
     }
 
     public void UpgradeFireRate()
@@ -114,21 +109,15 @@ public class PlayerUpgrades : MonoBehaviour
     public int GetMultiShotUpgradeCost()
     {
         // Returns the cost in points for the next multi-shot upgrade
-        switch (MultiShotLevel)
+        return MultiShotLevel switch
         {
-            case 1:
-                return 75;
-            case 2:
-                return 200;
-            case 3:
-                return 300;
-            case 4:
-                return 400;
-            case 5:
-                return 500;
-            default:
-                return int.MaxValue;
-        }
+            1 => 75,
+            2 => 200,
+            3 => 300,
+            4 => 400,
+            5 => 500,
+            _ => 0,
+        };
     }
 
     #endregion
