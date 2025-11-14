@@ -52,6 +52,7 @@ MonoBehaviour:
   health: 3
   moveSpeed: 1
   deathAnimationDuration: 12.5
+  pointsGainedOnDeath: 8
   takeDamageKnockbackSpeed: 4
   takeDamageKnockbackDuration: 0.15
   hitPlayerKnockbackSpeed: 8.5
@@ -59,6 +60,7 @@ MonoBehaviour:
   deathEffectPrefab: {fileID: 9014080968735802713, guid: d3f2a3decfbd24093b846f24410a4fc8, type: 3}
   magicProjectilePrefab: {fileID: 3421850811927630219, guid: 23702c3dc8f4a49949967bef206d0b34, type: 3}
   enemyType: 1
+  isFlying: 0
   attackRange: 5
   attackInterval: 5
   projectileSpeed: 5
