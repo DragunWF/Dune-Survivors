@@ -37,3 +37,4 @@
 ## 4. Agent Instructions
 
 - **Build Commands:** Do not attempt to execute build commands. The user will handle compilation and verification within the Unity editor.
+- **Git Commands:** Do not execute any git commands (e.g., `git status`, `git add`, `git commit`). The user will handle all git operations.
