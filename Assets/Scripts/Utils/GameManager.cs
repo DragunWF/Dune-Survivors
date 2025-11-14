@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public sealed class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private const int mainMenuIndex = 0;
+    private const int gameSceneIndex = 1;
+    private const int gameOverSceneIndex = 2;
+
+    #region Load Scene Methods
+
+    public void LoadMainMenu() => LoadScene(mainMenuIndex);
+    public void LoadGameScene() => LoadScene(gameSceneIndex);
+    public void LoadGameOverScene() => LoadScene(gameOverSceneIndex);
+
+    #endregion
+
+    private void LoadScene(int sceneIndex)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        SceneManager.LoadScene(sceneIndex);
     }
 }
