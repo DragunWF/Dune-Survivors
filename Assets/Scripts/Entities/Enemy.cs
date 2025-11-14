@@ -13,6 +13,7 @@ public sealed class Enemy : MonoBehaviour
 
     private const string PLAYER = "Player"; // GameObject tag
     private const string IS_DEAD = "isDead"; // Animator parameter
+    private const string IS_IDLE = "isIdle"; // Animator parameter
 
     #endregion
 
@@ -36,6 +37,7 @@ public sealed class Enemy : MonoBehaviour
 
     [Header("Enemy Type")]
     [SerializeField] private EnemyType enemyType = EnemyType.Melee;
+    [SerializeField] private bool isFlying = false; // To continue idle animation while the enemy is shooting
 
     [Header("Ranged Attack Settings")]
     [SerializeField] private float attackRange = 5f;
@@ -113,10 +115,14 @@ public sealed class Enemy : MonoBehaviour
         if (enemyType != EnemyType.Melee && Vector2.Distance(transform.position, playerTransform.position) <= attackRange)
         {
             rigidBody.velocity = Vector2.zero; // Stop moving if in attack range for ranged enemies
-            return;
+            animator.SetBool(IS_IDLE, true);
+        }
+        else
+        {
+            MoveTowardsPlayer();
         }
 
-        MoveTowardsPlayer();
+        UpdateAnimationState();
     }
 
     private void PerformRangedAttack()
@@ -144,6 +150,7 @@ public sealed class Enemy : MonoBehaviour
         }
 
         GameObject projectile = Instantiate(magicProjectilePrefab, transform.position, Quaternion.identity);
+
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         if (projectileRb != null)
         {
@@ -256,5 +263,19 @@ public sealed class Enemy : MonoBehaviour
             Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
+    }
+
+    private void UpdateAnimationState()
+    {
+        if (isDead || playerTransform == null) return;
+
+        if (isFlying)
+        {
+            animator.SetBool(IS_IDLE, false); // Flying enemies always use move animation
+            return;
+        }
+
+        bool isStandingStill = rigidBody.velocity.magnitude < 0.01f;
+        animator.SetBool(IS_IDLE, isStandingStill);
     }
 }
