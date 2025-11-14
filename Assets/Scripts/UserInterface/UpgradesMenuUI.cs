@@ -121,7 +121,7 @@ public class UpgradesMenuUI : MonoBehaviour
             maxHealthText.text = "Maxed";
             return;
         }
-        maxHealthText.text = $"Capacity {capacity}";
+        maxHealthText.text = $"Max: {capacity}";
     }
 
     public void UpdateHealthStatusText(int currentHealth, int maxHealth)

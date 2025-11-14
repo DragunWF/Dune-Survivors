@@ -15,11 +15,13 @@ public class UpgradeButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     private UpgradesMenuUI upgradesMenuUI;
     private PlayerUpgrades playerUpgrades;
+    private Player player;
 
     private void Awake()
     {
         upgradesMenuUI = FindObjectOfType<UpgradesMenuUI>();
         playerUpgrades = FindObjectOfType<PlayerUpgrades>();
+        player = FindObjectOfType<Player>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -35,12 +37,15 @@ public class UpgradeButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerE
                 break;
             case UpgradeType.MultiShot:
                 cost = playerUpgrades.GetMultiShotUpgradeCost();
+                isMaxed = playerUpgrades.MultiShotLevel >= playerUpgrades.GetMaxMultiShotLevel();
                 break;
             case UpgradeType.MaxHealth:
                 cost = playerUpgrades.GetMaxHealthUpgradeCost();
+                isMaxed = playerUpgrades.MaxHealthCapacity >= playerUpgrades.GetMaxHealthCapacity();
                 break;
             case UpgradeType.Heal:
                 cost = playerUpgrades.GetHealCost();
+                isMaxed = player.GetHealth() >= playerUpgrades.MaxHealthCapacity;
                 break;
         }
 
