@@ -43,6 +43,7 @@ public class GameStats : MonoBehaviour
     public void IncrementEnemiesDefeated()
     {
         enemiesDefeated++;
+        gameSceneUI.UpdateEnemiesDefeatedUI(enemiesDefeated);
     }
 
     #region Points Management Methods
