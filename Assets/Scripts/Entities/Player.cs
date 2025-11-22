@@ -8,7 +8,6 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(FlashEffect))]
-[RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(PlayerUpgrades))]
 public sealed class Player : MonoBehaviour
 {
@@ -26,6 +25,18 @@ public sealed class Player : MonoBehaviour
 
     #endregion
 
+    #region Attribute Constants
+
+    // Amount of spread that increases when multishot is upgraded
+    private const float baseLevelSpread = 5.25f;
+    private const float initialSpread = 15f;
+
+    // Amount of bullet speed that increases when fire rate is upgraded
+    private const float baseLevelBulletSpeed = 2.5f;
+    private const float initialBulletSpeed = 1.25f;
+
+    #endregion
+
     #region Serializer Fields
 
     [Header("Player Stats")]
@@ -33,11 +44,11 @@ public sealed class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 1.5f;
     [SerializeField] private float fireRate = 0.8f;
     [SerializeField] private int multiShotCount = 1;
-    [SerializeField] private float bulletSpeed = 25f;
+    [SerializeField] private float bulletSpeed = initialBulletSpeed;
     [SerializeField] private float damageCooldownDuration = 3.5f;
 
     [Header("Shotgun Attack Settings")]
-    [SerializeField] private float shotgunSpreadAngle = 15f;
+    [SerializeField] private float shotgunSpreadAngle = initialSpread;
 
     [Header("Object Dependencies")]
     [SerializeField] private GameObject bulletPrefab;
@@ -58,7 +69,6 @@ public sealed class Player : MonoBehaviour
     private GameObject playerWeaponObj;
     private SpriteRenderer weaponSpriteRenderer;
 
-    private CapsuleCollider2D playerCollider;
     private Rigidbody2D rigidBody;
     private Animator animator;
     private Vector2 inputVector;
@@ -76,7 +86,6 @@ public sealed class Player : MonoBehaviour
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
         gameSceneUI = FindObjectOfType<GameSceneUI>();
-        playerCollider = GetComponent<CapsuleCollider2D>();
         playerUpgrades = GetComponent<PlayerUpgrades>();
 
         playerWeaponObj = GameObject.Find(PLAYER_WEAPON);
@@ -211,11 +220,13 @@ public sealed class Player : MonoBehaviour
     public void SetFireRate(float newFireRate)
     {
         fireRate = newFireRate;
+        bulletSpeed = initialBulletSpeed + (baseLevelBulletSpeed - 1) * playerUpgrades.FireRateLevel;
     }
 
     public void SetMultiShot(int projectileCount)
     {
         multiShotCount = projectileCount;
+        shotgunSpreadAngle = initialSpread + (baseLevelSpread - 1) * playerUpgrades.MultiShotLevel;
     }
 
     public void SetMaxHealth(int newMaxHealth)
