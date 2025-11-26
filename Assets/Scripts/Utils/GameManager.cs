@@ -11,9 +11,11 @@ public sealed class GameManager : MonoBehaviour
     private const int gameOverSceneIndex = 2;
 
     #region Audio
-    [SerializeField] Image soundOnIcon;
-    [SerializeField] Image soundOffIcon;
+
+    [SerializeField] private Image soundOnIcon;
+    [SerializeField] private Image soundOffIcon;
     private bool muted;
+
     #endregion
 
     #region Load Scene Methods
@@ -31,7 +33,6 @@ public sealed class GameManager : MonoBehaviour
 
     private void Start()
     {
-
         muted = PlayerPrefs.GetInt("Muted", 0) == 1;
         ApplyMuteState();
     }
