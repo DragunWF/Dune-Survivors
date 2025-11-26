@@ -28,11 +28,11 @@ public sealed class Player : MonoBehaviour
     #region Attribute Constants
 
     // Amount of spread that increases when multishot is upgraded
-    private const float baseLevelSpread = 5.25f;
+    private const float spreadIncreaseBylevel = 1.75f;
     private const float initialSpread = 15f;
 
     // Amount of bullet speed that increases when fire rate is upgraded
-    private const float baseLevelBulletSpeed = 2.5f;
+    private const float bulletSpeedIncreaseByLevel = 1.5f;
     private const float initialBulletSpeed = 1.25f;
 
     #endregion
@@ -220,13 +220,13 @@ public sealed class Player : MonoBehaviour
     public void SetFireRate(float newFireRate)
     {
         fireRate = newFireRate;
-        bulletSpeed = initialBulletSpeed + (baseLevelBulletSpeed - 1) * playerUpgrades.FireRateLevel;
+        bulletSpeed = initialBulletSpeed + (bulletSpeedIncreaseByLevel - 1) * playerUpgrades.FireRateLevel;
     }
 
     public void SetMultiShot(int projectileCount)
     {
         multiShotCount = projectileCount;
-        shotgunSpreadAngle = initialSpread + (baseLevelSpread - 1) * playerUpgrades.MultiShotLevel;
+        shotgunSpreadAngle = initialSpread + (spreadIncreaseBylevel - 1) * playerUpgrades.MultiShotLevel;
     }
 
     public void SetMaxHealth(int newMaxHealth)

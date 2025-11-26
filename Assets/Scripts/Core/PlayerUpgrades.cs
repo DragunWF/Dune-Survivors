@@ -40,19 +40,19 @@ public class PlayerUpgrades : MonoBehaviour
         switch (FireRateLevel)
         {
             case 1:
-                player.SetFireRate(0.7f);
+                player.SetFireRate(0.75f);
                 break;
             case 2:
-                player.SetFireRate(0.5f);
+                player.SetFireRate(0.65f);
                 break;
             case 3:
-                player.SetFireRate(0.35f);
+                player.SetFireRate(0.50f);
                 break;
             case 4:
-                player.SetFireRate(0.15f);
+                player.SetFireRate(0.325f);
                 break;
             case 5:
-                player.SetFireRate(0.05f);
+                player.SetFireRate(0.125f);
                 break;
             default:
                 break;
@@ -124,7 +124,15 @@ public class PlayerUpgrades : MonoBehaviour
 
     #region Max Health Upgrade and Healing Methods
 
-    public int GetMaxHealthUpgradeCost() => 30;
+    public int GetMaxHealthUpgradeCost()
+    {
+        return MaxHealthCapacity switch
+        {
+            3 => 50,
+            4 => 100,
+            _ => 0,
+        };
+    }
     public int GetHealCost() => 10;
 
     public void HealToFull()
