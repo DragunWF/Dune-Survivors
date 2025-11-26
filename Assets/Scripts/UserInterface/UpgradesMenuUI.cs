@@ -186,6 +186,7 @@ public class UpgradesMenuUI : MonoBehaviour
         audioPlayer.PlayUpgradeClip();
         playerUpgrades.UpgradeFireRate();
         UpdateFireRateUpgradeText(playerUpgrades.FireRateLevel);
+        UpdatePriceText(playerUpgrades.GetFireRateUpgradeCost());
         UpdateAllPointsText();
     }
 
@@ -204,6 +205,7 @@ public class UpgradesMenuUI : MonoBehaviour
         audioPlayer.PlayUpgradeClip();
         playerUpgrades.UpgradeMultiShot();
         UpdateMultiShotUpgradeText(playerUpgrades.MultiShotLevel);
+        UpdatePriceText(playerUpgrades.GetMultiShotUpgradeCost());
         UpdateAllPointsText();
     }
 
@@ -223,6 +225,7 @@ public class UpgradesMenuUI : MonoBehaviour
         audioPlayer.PlayUpgradeClip();
         playerUpgrades.UpgradeMaxHealth();
         UpdateMaxHealthUpgradeText(playerUpgrades.MaxHealthCapacity);
+        UpdatePriceText(playerUpgrades.GetMaxHealthUpgradeCost());
         UpdateAllPointsText();
         gameSceneUI.UpdateMaxHealthHearts();
     }
