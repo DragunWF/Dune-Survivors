@@ -146,7 +146,7 @@ public sealed class Player : MonoBehaviour
 
         // Transform weapon position based on mouse side
         var weaponPosX = Mathf.Abs(playerWeaponObj.transform.localPosition.x);
-        Vector2 weaponPos = new Vector2(
+        Vector2 weaponPos = new(
             isMouseToTheLeft ? -weaponPosX : weaponPosX,
             playerWeaponObj.transform.localPosition.y
         );

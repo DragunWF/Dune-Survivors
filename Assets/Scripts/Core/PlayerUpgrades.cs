@@ -115,7 +115,6 @@ public class PlayerUpgrades : MonoBehaviour
             2 => 200,
             3 => 300,
             4 => 400,
-            5 => 500,
             _ => 0,
         };
     }
