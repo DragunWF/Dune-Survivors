@@ -4,4 +4,5 @@ public enum GameTag
     Enemy,
     Bullet,
     EnemyProjectile,
+    ImpactEffect,
 }

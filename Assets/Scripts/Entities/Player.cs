@@ -77,6 +77,7 @@ public sealed class Player : MonoBehaviour
     private FlashEffect flashEffect;
     private AudioPlayer audioPlayer;
     private GameSceneUI gameSceneUI;
+    private SceneFader sceneFader;
 
     #endregion
 
@@ -87,6 +88,7 @@ public sealed class Player : MonoBehaviour
         audioPlayer = FindObjectOfType<AudioPlayer>();
         gameSceneUI = FindObjectOfType<GameSceneUI>();
         playerUpgrades = GetComponent<PlayerUpgrades>();
+        sceneFader = FindObjectOfType<SceneFader>();
 
         playerWeaponObj = GameObject.Find(PLAYER_WEAPON);
         weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
@@ -198,8 +200,16 @@ public sealed class Player : MonoBehaviour
     {
         rigidBody.velocity = Vector2.zero;
         animator.SetBool(IS_DEAD, true);
+        StartCoroutine(StartDelayedGameOverTransition());
+
         // Disable player controls
         enabled = false;
+    }
+
+    private IEnumerator StartDelayedGameOverTransition()
+    {
+        yield return new WaitForSeconds(1.5f);
+        sceneFader.FadeToGameOverScene();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

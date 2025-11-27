@@ -50,6 +50,14 @@ public sealed class GameManager : MonoBehaviour
 
     public void LoadScene(int sceneIndex)
     {
+        if (sceneIndex == gameOverSceneIndex)
+        {
+            SceneCleaner sceneCleaner = FindObjectOfType<SceneCleaner>();
+            if (sceneCleaner != null)
+            {
+                sceneCleaner.DestroyAllProjectilesAndEffects();
+            }
+        }
         SceneManager.LoadScene(sceneIndex);
     }
 

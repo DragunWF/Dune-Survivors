@@ -12,24 +12,11 @@ public class SceneFader : MonoBehaviour
     [SerializeField] private float fadeDuration = 3f;
     [SerializeField] private float delayBeforeSceneLoad = 1.5f;
 
-    public static SceneFader Instance { get; private set; }
-
     private GameManager gameManager;
+    private SceneCleaner sceneCleaner;
 
     private void Awake()
     {
-        // Implement the Singleton pattern to ensure only one instance exists
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            // Keep this object alive across scene loads
-            DontDestroyOnLoad(gameObject);
-        }
-
         // Ensure the fade image is initially transparent and inactive
         if (fadeImage != null)
         {
@@ -42,6 +29,11 @@ public class SceneFader : MonoBehaviour
         }
 
         gameManager = FindObjectOfType<GameManager>();
+    }
+
+    private void Start()
+    {
+        sceneCleaner = FindObjectOfType<SceneCleaner>();
     }
 
     #region Fade to Scene Loader Methods
@@ -82,6 +74,14 @@ public class SceneFader : MonoBehaviour
         fadeImage.color = new Color(0, 0, 0, 1);
 
         yield return new WaitForSeconds(delayBeforeSceneLoad);
+        if (sceneCleaner != null)
+        {
+            sceneCleaner.DestroyAllProjectilesAndEffects();
+        }
+        else
+        {
+            Debug.Log("SceneCleaner class is not present in the current scene!");
+        }
         GameManager.Instance.LoadScene(sceneIndex);
 
         // After loading the new scene, immediately start fading in from black

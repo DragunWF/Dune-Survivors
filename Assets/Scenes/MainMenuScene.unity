@@ -273,9 +273,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2075702150}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: LoadGameScene
+      - m_Target: {fileID: 335298061}
+        m_TargetAssemblyTypeName: SceneFader, Assembly-CSharp
+        m_MethodName: FadeToGameScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -628,6 +628,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69fe59f88e45d479c938411a22ee687f, type: 3}
+--- !u!114 &335298061 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6594751147766983373, guid: 69fe59f88e45d479c938411a22ee687f, type: 3}
+  m_PrefabInstance: {fileID: 335298060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18675913d9f9d45ea8e052dd1ceba2b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &586198913
 GameObject:
   m_ObjectHideFlags: 0

@@ -224,4 +224,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 6594751145855823773}
-  fadeDuration: 1
+  fadeDuration: 3.5
+  delayBeforeSceneLoad: 1.5

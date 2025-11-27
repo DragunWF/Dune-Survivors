@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9014080968735802719}
   m_Layer: 0
   m_Name: Death Effect Particle
-  m_TagString: Untagged
+  m_TagString: ImpactEffect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
