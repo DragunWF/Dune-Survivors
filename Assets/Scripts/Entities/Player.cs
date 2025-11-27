@@ -58,6 +58,8 @@ public sealed class Player : MonoBehaviour
 
     #region Player State Fields
 
+    public bool IsDead => animator.GetBool(IS_DEAD);
+
     private bool isInDamageCooldown = false;
     private float nextFireTime = 0f;
 

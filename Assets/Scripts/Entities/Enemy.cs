@@ -64,6 +64,7 @@ public sealed class Enemy : MonoBehaviour
     private bool isKnockedBack = false;
     private bool isDead = false;
 
+    private Player player;
     private AudioPlayer audioPlayer;
     private GameStats gameStats;
 
@@ -83,6 +84,7 @@ public sealed class Enemy : MonoBehaviour
         if (playerObj != null)
         {
             playerTransform = playerObj.transform;
+            player = playerObj.GetComponent<Player>();
         }
         else
         {
@@ -127,6 +129,11 @@ public sealed class Enemy : MonoBehaviour
 
     private void PerformRangedAttack()
     {
+        if (player.IsDead)
+        {
+            return;
+        }
+
         switch (enemyType)
         {
             case EnemyType.Ranged:
