@@ -33,7 +33,7 @@ public sealed class Player : MonoBehaviour
 
     // Amount of bullet speed that increases when fire rate is upgraded
     private const float bulletSpeedIncreaseByLevel = 1.5f;
-    private const float initialBulletSpeed = 1.25f;
+    private const float initialBulletSpeed = 12f;
 
     #endregion
 
