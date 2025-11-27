@@ -6,10 +6,11 @@ using System.Collections;
 public class SceneFader : MonoBehaviour
 {
     [Tooltip("The UI Image component that will be used for fading. It should cover the entire screen.")]
-    public Image fadeImage;
+    [SerializeField] private Image fadeImage;
 
     [Tooltip("The duration in seconds for the fade effect.")]
-    public float fadeDuration = 1f;
+    [SerializeField] private float fadeDuration = 3f;
+    [SerializeField] private float delayBeforeSceneLoad = 1.5f;
 
     public static SceneFader Instance { get; private set; }
 
@@ -43,21 +44,26 @@ public class SceneFader : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
-    /// <summary>
-    /// Initiates a fade-to-black transition and then loads the specified scene.
-    /// </summary>
-    /// <param name="sceneName">The name of the scene to load.</param>
-    public void FadeToScene(string sceneName)
+    #region Fade to Scene Loader Methods
+
+    public void FadeToGameOverScene()
     {
-        if (fadeImage == null)
-        {
-            Debug.LogError("SceneFader: Cannot fade, fadeImage is not assigned.");
-            return;
-        }
-        StartCoroutine(FadeOutAndLoad(sceneName));
+        StartCoroutine(FadeOutAndLoad(gameManager.GetGameOverSceneIndex()));
     }
 
-    private IEnumerator FadeOutAndLoad(string sceneName)
+    public void FadeToMainMenu()
+    {
+        StartCoroutine(FadeOutAndLoad(gameManager.GetMainMenuIndex()));
+    }
+
+    public void FadeToGameScene()
+    {
+        StartCoroutine(FadeOutAndLoad(gameManager.GetGameSceneIndex()));
+    }
+
+    #endregion
+
+    private IEnumerator FadeOutAndLoad(int sceneIndex)
     {
         // Activate the fade image and set it to fully transparent initially
         fadeImage.gameObject.SetActive(true);
@@ -75,8 +81,8 @@ public class SceneFader : MonoBehaviour
         // Ensure it's fully black before loading the scene
         fadeImage.color = new Color(0, 0, 0, 1);
 
-        // Load the new scene via the GameManager
-        GameManager.Instance.LoadScene(sceneName);
+        yield return new WaitForSeconds(delayBeforeSceneLoad);
+        GameManager.Instance.LoadScene(sceneIndex);
 
         // After loading the new scene, immediately start fading in from black
         // This ensures the new scene appears with a fade-in effect.

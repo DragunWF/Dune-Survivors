@@ -28,6 +28,14 @@ public sealed class GameManager : MonoBehaviour
 
     #endregion
 
+    #region Getter Methods for Scene Indicies
+
+    public int GetMainMenuIndex() => mainMenuIndex;
+    public int GetGameSceneIndex() => gameSceneIndex;
+    public int GetGameOverSceneIndex() => gameOverSceneIndex;
+
+    #endregion
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,12 +48,7 @@ public sealed class GameManager : MonoBehaviour
         }
     }
 
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    private void LoadScene(int sceneIndex)
+    public void LoadScene(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
     }
@@ -66,6 +69,17 @@ public sealed class GameManager : MonoBehaviour
     private void ApplyMuteState()
     {
         AudioListener.volume = muted ? 0f : 1f;
+        if (soundOnIcon == null)
+        {
+            Debug.Log("SoundOnIcon is not assigned in the inspector!");
+            return;
+        }
+        if (soundOffIcon == null)
+        {
+            Debug.Log("SoundOffIcon is not assigned in the inspector!");
+            return;
+        }
+
         soundOnIcon.gameObject.SetActive(!muted);
         soundOffIcon.gameObject.SetActive(muted);
     }
