@@ -64,10 +64,10 @@ public class PlayerUpgrades : MonoBehaviour
         // Returns the cost in points for the next fire rate upgrade
         return FireRateLevel switch
         {
-            1 => 25,
-            2 => 50,
-            3 => 75,
-            4 => 100,
+            1 => 50,
+            2 => 100,
+            3 => 175,
+            4 => 250,
             _ => 0,
         };
     }
@@ -89,6 +89,7 @@ public class PlayerUpgrades : MonoBehaviour
     public void SetMultiShotByLevel()
     {
         // Indicates the current multi-shot projectile count per level for the player
+        // One level = 1 projectile
         if (MultiShotLevel > MAX_MULTI_SHOT_LEVEL)
         {
             MultiShotLevel = MAX_MULTI_SHOT_LEVEL;
@@ -111,10 +112,10 @@ public class PlayerUpgrades : MonoBehaviour
         // Returns the cost in points for the next multi-shot upgrade
         return MultiShotLevel switch
         {
-            1 => 75,
-            2 => 200,
-            3 => 300,
-            4 => 400,
+            1 => 150,
+            2 => 300,
+            3 => 500,
+            4 => 750,
             _ => 0,
         };
     }
