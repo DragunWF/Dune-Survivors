@@ -226,6 +226,7 @@ public class UpgradesMenuUI : MonoBehaviour
         playerUpgrades.UpgradeMaxHealth();
         UpdateMaxHealthUpgradeText(playerUpgrades.MaxHealthCapacity);
         UpdatePriceText(playerUpgrades.GetMaxHealthUpgradeCost());
+        UpdateHealthStatusText(player.GetHealth(), playerUpgrades.MaxHealthCapacity);
         UpdateAllPointsText();
         gameSceneUI.UpdateMaxHealthHearts();
     }
