@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public sealed class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
     private const int mainMenuIndex = 0;
     private const int gameSceneIndex = 1;
     private const int gameOverSceneIndex = 2;
@@ -25,6 +27,23 @@ public sealed class GameManager : MonoBehaviour
     public void LoadGameOverScene() => LoadScene(gameOverSceneIndex);
 
     #endregion
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 
     private void LoadScene(int sceneIndex)
     {
