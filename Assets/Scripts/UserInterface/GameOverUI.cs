@@ -17,18 +17,29 @@ public class GameOverUI : MonoBehaviour
 
     private TextMeshProUGUI pointsText;
     private TextMeshProUGUI enemiesDefeatedText;
+    private TextMeshProUGUI highScoreText;
 
     private GameStats gameStats;
 
     private void Awake()
     {
-        // TODO: Get points text game objects and enemies defeated text
+        pointsText = GameObject.Find(POINTS_TEXT).GetComponent<TextMeshProUGUI>();
+        enemiesDefeatedText = GameObject.Find(ENEMIES_DEFEATED_TEXT).GetComponent<TextMeshProUGUI>();
+        highScoreText = GameObject.Find(HIGH_SCORE_TEXT).GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
     {
         gameStats = FindObjectOfType<GameStats>();
 
-        // TODO: Set points text and enemies defeated text here
+        pointsText.text = $"Points: {gameStats.GetPoints()}";
+        enemiesDefeatedText.text = $"Enemies Defeated: {gameStats.GetEnemiesDefeated()}";
+
+        highScoreText.gameObject.SetActive(false);
+        if (gameStats.IsNewHighScore)
+        {
+            highScoreText.gameObject.SetActive(true);
+            highScoreText.text = $"New High Score: {gameStats.HighestPointsEarned}";
+        }
     }
 }
