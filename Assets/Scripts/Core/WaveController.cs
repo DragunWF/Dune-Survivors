@@ -8,12 +8,14 @@ public sealed class WaveController : MonoBehaviour
 
     private Wave[] waves;
     private GameSceneUI gameSceneUI;
+    private Player player;
 
     private TaskCompletionSource<bool> nextWaveTask;
 
     private void Awake()
     {
         gameSceneUI = FindObjectOfType<GameSceneUI>();
+        player = FindObjectOfType<Player>();
 
         // Wave difficulty settings
         waves = new Wave[]
@@ -53,7 +55,10 @@ public sealed class WaveController : MonoBehaviour
                 secondsPassed++;
             }
 
-            gameSceneUI.ShowWaveCompleteText();
+            if (!player.IsDead)
+            {
+                gameSceneUI.ShowWaveCompleteText();
+            }
 
             nextWaveTask = new TaskCompletionSource<bool>();
             yield return new WaitUntil(() => nextWaveTask.Task.IsCompleted);
