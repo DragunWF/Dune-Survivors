@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Player))]
@@ -9,7 +8,7 @@ public class PlayerUpgrades : MonoBehaviour
 {
     #region Upgrade Limits
 
-    private const int MAX_FIRE_RATE_LEVEL = 5;
+    private const int MAX_FIRE_RATE_LEVEL = 8;
     private const int MAX_MULTI_SHOT_LEVEL = 5;
     private const int MAX_HEALTH_CAPACITY = 5;
 
@@ -40,18 +39,27 @@ public class PlayerUpgrades : MonoBehaviour
         switch (FireRateLevel)
         {
             case 1:
-                player.SetFireRate(0.75f);
+                player.SetFireRate(0.9f);
                 break;
             case 2:
-                player.SetFireRate(0.65f);
+                player.SetFireRate(0.85f);
                 break;
             case 3:
-                player.SetFireRate(0.50f);
+                player.SetFireRate(0.725f);
                 break;
             case 4:
-                player.SetFireRate(0.325f);
+                player.SetFireRate(0.6f);
                 break;
             case 5:
+                player.SetFireRate(0.5f);
+                break;
+            case 6:
+                player.SetFireRate(0.4f);
+                break;
+            case 7:
+                player.SetFireRate(0.3f);
+                break;
+            case 8:
                 player.SetFireRate(0.125f);
                 break;
             default:
@@ -66,8 +74,11 @@ public class PlayerUpgrades : MonoBehaviour
         {
             1 => 50,
             2 => 100,
-            3 => 175,
-            4 => 250,
+            3 => 150,
+            4 => 200,
+            5 => 250,
+            6 => 300,
+            7 => 350,
             _ => 0,
         };
     }
@@ -113,9 +124,9 @@ public class PlayerUpgrades : MonoBehaviour
         return MultiShotLevel switch
         {
             1 => 150,
-            2 => 300,
-            3 => 500,
-            4 => 750,
+            2 => 325,
+            3 => 650,
+            4 => 1000,
             _ => 0,
         };
     }
