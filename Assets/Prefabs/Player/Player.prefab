@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   moveSpeed: 5
-  fireRate: 0.7
+  fireRate: 1.25
   multiShotCount: 1
   bulletSpeed: 12
   damageCooldownDuration: 3.5

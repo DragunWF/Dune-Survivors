@@ -52,7 +52,7 @@ MonoBehaviour:
   health: 3
   moveSpeed: 1
   deathAnimationDuration: 12.5
-  pointsGainedOnDeath: 8
+  pointsGainedOnDeath: 15
   takeDamageKnockbackSpeed: 4
   takeDamageKnockbackDuration: 0.15
   hitPlayerKnockbackSpeed: 8.5
