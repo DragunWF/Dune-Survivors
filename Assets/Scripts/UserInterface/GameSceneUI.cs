@@ -77,6 +77,12 @@ public class GameSceneUI : MonoBehaviour
 
     #region Wave Completeion UI Methods
 
+    public void ShowAllWaveCompletedText()
+    {
+        waveCompleteText.text = "All waves completed!";
+        waveCompleteText.gameObject.SetActive(true);
+    }
+
     public void ShowWaveCompleteText()
     {
         waveCompleteText.gameObject.SetActive(true);

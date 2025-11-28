@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class GameStats : MonoBehaviour
 {
     public static GameStats Instance { get; private set; }
+    public bool IsGameWin { get; private set; }
+    public int HighestPointsEarned { get; private set; }
+    public bool IsNewHighScore { get; private set; } // For points
 
     [SerializeField] private int points = 0; // Used for purchasing upgrades
     private int enemiesDefeated = 0;
@@ -23,6 +26,11 @@ public class GameStats : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        OnGameReset();
     }
 
     private void OnEnable()
@@ -44,6 +52,23 @@ public class GameStats : MonoBehaviour
     {
         enemiesDefeated++;
         gameSceneUI.UpdateEnemiesDefeatedUI(enemiesDefeated);
+    }
+
+    public void OnGameReset()
+    {
+        IsNewHighScore = false;
+        points = 0;
+        enemiesDefeated = 0;
+    }
+
+    public void OnGameWin()
+    {
+        IsGameWin = true;
+        if (points > HighestPointsEarned)
+        {
+            HighestPointsEarned = points;
+            IsNewHighScore = true;
+        }
     }
 
     #region Points Management Methods

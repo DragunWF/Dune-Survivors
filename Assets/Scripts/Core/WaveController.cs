@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public sealed class WaveController : MonoBehaviour
 
     private Wave[] waves;
     private GameSceneUI gameSceneUI;
+    private SceneFader sceneFader;
+    private GameStats gameStats;
     private Player player;
 
     private TaskCompletionSource<bool> nextWaveTask;
@@ -15,6 +18,8 @@ public sealed class WaveController : MonoBehaviour
     private void Awake()
     {
         gameSceneUI = FindObjectOfType<GameSceneUI>();
+        sceneFader = FindObjectOfType<SceneFader>();
+        gameStats = FindObjectOfType<GameStats>();
         player = FindObjectOfType<Player>();
 
         // Wave difficulty settings
@@ -63,7 +68,14 @@ public sealed class WaveController : MonoBehaviour
             nextWaveTask = new TaskCompletionSource<bool>();
             yield return new WaitUntil(() => nextWaveTask.Task.IsCompleted);
         }
-        // All waves completed. Handle game win condition or endless mode.
+
+        const float gameCompletionDelay = 3f;
+        gameSceneUI.ShowAllWaveCompletedText();
+        gameStats.OnGameWin();
+        yield return new WaitForSeconds(gameCompletionDelay);
+        sceneFader.FadeToGameOverScene();
+
+        // All waves completed. Handle game win condition.
         Debug.Log("All waves completed!");
     }
 
