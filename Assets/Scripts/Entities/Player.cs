@@ -79,16 +79,21 @@ public sealed class Player : MonoBehaviour
     private FlashEffect flashEffect;
     private AudioPlayer audioPlayer;
     private GameSceneUI gameSceneUI;
+    private PauseMenuUI pauseMenuUI;
     private SceneFader sceneFader;
 
     #endregion
 
     private void Awake()
     {
+        // Ensure time scale is reset when the game starts, especially for editor runs.
+        Time.timeScale = 1f;
+
         rigidBody = GetComponent<Rigidbody2D>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
         gameSceneUI = FindObjectOfType<GameSceneUI>();
+        pauseMenuUI = FindObjectOfType<PauseMenuUI>();
         playerUpgrades = GetComponent<PlayerUpgrades>();
         sceneFader = FindObjectOfType<SceneFader>();
 
@@ -107,6 +112,19 @@ public sealed class Player : MonoBehaviour
 
     private void Update()
     {
+        // Handle pause/resume input using Escape key
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Time.timeScale == 0f) // If game is currently paused
+            {
+                pauseMenuUI.OnResumeButtonClick();
+            }
+            else // If game is not paused
+            {
+                pauseMenuUI.OnPauseButtonClick();
+            }
+        }
+
         if (Time.timeScale == 0f) // If game is paused, do not process input for movement or aiming
         {
             return;
