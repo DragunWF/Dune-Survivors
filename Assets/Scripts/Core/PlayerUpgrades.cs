@@ -72,13 +72,13 @@ public class PlayerUpgrades : MonoBehaviour
         // Returns the cost in points for the next fire rate upgrade
         return FireRateLevel switch
         {
-            1 => 50,
-            2 => 100,
-            3 => 150,
-            4 => 200,
-            5 => 250,
-            6 => 300,
-            7 => 350,
+            1 => 25,
+            2 => 60,
+            3 => 100,
+            4 => 150,
+            5 => 300,
+            6 => 500,
+            7 => 750,
             _ => 0,
         };
     }
@@ -87,9 +87,9 @@ public class PlayerUpgrades : MonoBehaviour
     {
         if (FireRateLevel < MAX_FIRE_RATE_LEVEL)
         {
+            gameStats.SubtractPoints(GetFireRateUpgradeCost());
             FireRateLevel++;
             SetFireRateByLevel();
-            gameStats.SubtractPoints(GetFireRateUpgradeCost());
         }
     }
 
@@ -112,9 +112,9 @@ public class PlayerUpgrades : MonoBehaviour
     {
         if (MultiShotLevel < MAX_MULTI_SHOT_LEVEL)
         {
+            gameStats.SubtractPoints(GetMultiShotUpgradeCost());
             MultiShotLevel++;
             SetMultiShotByLevel();
-            gameStats.SubtractPoints(GetMultiShotUpgradeCost());
         }
     }
 
@@ -124,9 +124,9 @@ public class PlayerUpgrades : MonoBehaviour
         return MultiShotLevel switch
         {
             1 => 150,
-            2 => 325,
-            3 => 650,
-            4 => 1000,
+            2 => 375,
+            3 => 750,
+            4 => 1500,
             _ => 0,
         };
     }
@@ -156,9 +156,9 @@ public class PlayerUpgrades : MonoBehaviour
     {
         if (MaxHealthCapacity < MAX_HEALTH_CAPACITY)
         {
+            gameStats.SubtractPoints(GetMaxHealthUpgradeCost());
             MaxHealthCapacity++;
             player.SetMaxHealth(MaxHealthCapacity);
-            gameStats.SubtractPoints(GetMaxHealthUpgradeCost());
         }
     }
 
