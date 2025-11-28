@@ -26899,6 +26899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1471753356}
   - component: {fileID: 1471753355}
+  - component: {fileID: 1471753357}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -26935,6 +26936,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1471753357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471753354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b710cbc30131040c8b90dce22470d3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 3028201869164428188}
 --- !u!1001 &1526187920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28212,6 +28226,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2e012ffa31824e33a996775b1edcb60, type: 3}
+--- !u!4 &3028201869164428188 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3028201868057243430, guid: a2e012ffa31824e33a996775b1edcb60, type: 3}
+  m_PrefabInstance: {fileID: 3028201869164428187}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3421850812482019032
 PrefabInstance:
   m_ObjectHideFlags: 0
