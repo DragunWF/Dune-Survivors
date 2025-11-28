@@ -9,6 +9,8 @@ public class GameOverUI : MonoBehaviour
     #region Game Object Names
 
     private const string POINTS_TEXT = "PointsText";
+    private const string HIGH_SCORE_TEXT = "HighScoreText"; // Still points
+    private const string NOTIFICATION_TEXT = "NotificationText";
     private const string ENEMIES_DEFEATED_TEXT = "EnemiesDefeatedText";
 
     #endregion
