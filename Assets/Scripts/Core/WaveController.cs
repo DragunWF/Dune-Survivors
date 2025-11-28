@@ -25,11 +25,11 @@ public sealed class WaveController : MonoBehaviour
             new(70, 2.2f, 4, 2),  // Wave 3 
             new(90, 2.5f, 4, 2),  // Wave 4 
             new(120, 2.2f, 4, 3),  // Wave 5 
-            new(150, 2.0f, 4, 3),  // Wave 6 
-            new(180, 1.8f, 4, 4), // Wave 7 
-            new(220, 1.8f, 4, 4), // Wave 8 
-            new(250, 1.8f, 4, 5), // Wave 9 
-            new(300, 1.6f, 4, 5)  // Wave 10 
+            new(135, 2.0f, 4, 3),  // Wave 6 
+            new(150, 1.8f, 4, 4), // Wave 7 
+            new(175, 1.8f, 4, 4), // Wave 8 
+            new(225, 1.8f, 4, 5), // Wave 9 
+            new(250, 1.6f, 4, 5)  // Wave 10 
         };
     }
 
