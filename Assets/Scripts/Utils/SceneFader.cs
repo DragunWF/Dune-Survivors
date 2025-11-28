@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Video;
 
 public class SceneFader : MonoBehaviour
 {
@@ -35,6 +36,12 @@ public class SceneFader : MonoBehaviour
     {
         sceneCleaner = FindObjectOfType<SceneCleaner>();
     }
+
+    #region Setter Methods
+
+    public void SetFadeDuration(float fadeDuration) => this.fadeDuration = fadeDuration;
+
+    #endregion
 
     #region Fade to Scene Loader Methods
 

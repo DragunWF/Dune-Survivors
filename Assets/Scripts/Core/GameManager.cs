@@ -46,6 +46,9 @@ public sealed class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        // In cases where scenes are loaded when the game is paused
+        Time.timeScale = 1f;
     }
 
     public void LoadScene(int sceneIndex)

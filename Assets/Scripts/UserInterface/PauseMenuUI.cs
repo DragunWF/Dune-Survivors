@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PauseMenuUI : MonoBehaviour
 {
+    public bool IsTransitioning { get; private set; }
+
     #region
 
     private const string PAUSE_MENU = "PauseMenuPanel";
@@ -12,11 +14,13 @@ public class PauseMenuUI : MonoBehaviour
     #endregion
 
     private SceneFader sceneFader;
+    private SceneCleaner sceneCleaner;
     private GameObject pauseMenu;
 
     private void Awake()
     {
         sceneFader = FindObjectOfType<SceneFader>();
+        sceneCleaner = FindObjectOfType<SceneCleaner>();
         pauseMenu = GameObject.Find(PAUSE_MENU);
     }
 
@@ -40,7 +44,10 @@ public class PauseMenuUI : MonoBehaviour
 
     public void OnMainMenuButtonClick()
     {
-        Time.timeScale = 1f; // Ensure time scale is reset before loading new scene
+        Time.timeScale = 1.5f;
+        IsTransitioning = true;
+        sceneFader.SetFadeDuration(0.25f);
+        sceneCleaner.DestroyAllProjectilesAndEffects();
         sceneFader.FadeToMainMenu();
     }
 }

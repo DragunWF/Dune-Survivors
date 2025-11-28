@@ -67,6 +67,7 @@ public sealed class Enemy : MonoBehaviour
     private Player player;
     private AudioPlayer audioPlayer;
     private GameStats gameStats;
+    private PauseMenuUI pauseMenuUI;
 
     private float nextAttackTime = 0f;
 
@@ -79,6 +80,7 @@ public sealed class Enemy : MonoBehaviour
 
         audioPlayer = FindObjectOfType<AudioPlayer>();
         gameStats = FindObjectOfType<GameStats>();
+        pauseMenuUI = FindObjectOfType<PauseMenuUI>();
 
         playerObj = GameObject.FindWithTag(PLAYER);
         if (playerObj != null)
@@ -129,7 +131,7 @@ public sealed class Enemy : MonoBehaviour
 
     private void PerformRangedAttack()
     {
-        if (player.IsDead)
+        if (player.IsDead || pauseMenuUI.IsTransitioning)
         {
             return;
         }
