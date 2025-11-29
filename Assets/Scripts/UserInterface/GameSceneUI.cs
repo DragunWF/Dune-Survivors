@@ -14,6 +14,7 @@ public class GameSceneUI : MonoBehaviour
     private const string WAVE_TIMER_TEXT = "WaveTimerText";
     private const string ENEMIES_DEFEATED_TEXT = "EnemiesDefeatedText";
     private const string WAVE_COMPLETE_TEXT = "WaveCompleteText";
+    private const string WAVE_COMPLETE_BACKGROUND = "WaveCompleteBackground";
 
     #endregion
 
@@ -31,6 +32,7 @@ public class GameSceneUI : MonoBehaviour
     private TextMeshProUGUI waveText;
     private TextMeshProUGUI waveTimerText;
     private TextMeshProUGUI waveCompleteText;
+    private Image waveCompleteBackground;
 
     // Game Stats related UI elements
     private TextMeshProUGUI pointsText;
@@ -66,6 +68,7 @@ public class GameSceneUI : MonoBehaviour
         waveTimerText = GameObject.Find(WAVE_TIMER_TEXT).GetComponent<TextMeshProUGUI>();
         enemiesDefeatedText = GameObject.Find(ENEMIES_DEFEATED_TEXT).GetComponent<TextMeshProUGUI>();
         waveCompleteText = GameObject.Find(WAVE_COMPLETE_TEXT).GetComponent<TextMeshProUGUI>();
+        waveCompleteBackground = GameObject.Find(WAVE_COMPLETE_BACKGROUND).GetComponent<Image>();
 
         upgradesMenuUI = FindObjectOfType<UpgradesMenuUI>();
     }
@@ -73,6 +76,7 @@ public class GameSceneUI : MonoBehaviour
     private void Start()
     {
         waveCompleteText.gameObject.SetActive(false);
+        waveCompleteBackground.gameObject.SetActive(false);
     }
 
     #region Wave Completion UI Methods
@@ -80,11 +84,13 @@ public class GameSceneUI : MonoBehaviour
     public void ShowAllWaveCompletedText()
     {
         waveCompleteText.text = "All waves completed!";
+        waveCompleteBackground.gameObject.SetActive(true);
         waveCompleteText.gameObject.SetActive(true);
     }
 
     public void ShowWaveCompleteText()
     {
+        waveCompleteBackground.gameObject.SetActive(true);
         waveCompleteText.gameObject.SetActive(true);
         StartCoroutine(StartUpgradeMenuTimer());
     }
@@ -93,16 +99,19 @@ public class GameSceneUI : MonoBehaviour
     {
         StopAllCoroutines();
         waveCompleteText.gameObject.SetActive(false);
+        waveCompleteBackground.gameObject.SetActive(false);
     }
 
     public IEnumerator StartUpgradeMenuTimer()
     {
         for (int second = secondsToOpenUpgradeMenu; second >= 1; second--)
         {
+            waveCompleteBackground.gameObject.SetActive(true);
             waveCompleteText.text = $"Wave complete! Opening upgrade menu in {second}...";
             yield return new WaitForSeconds(1f);
         }
 
+        waveCompleteBackground.gameObject.SetActive(false);
         waveCompleteText.gameObject.SetActive(false);
         upgradesMenuUI.EnableUpgradesMenu();
     }
