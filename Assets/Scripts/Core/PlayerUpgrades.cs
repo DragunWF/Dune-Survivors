@@ -24,11 +24,13 @@ public class PlayerUpgrades : MonoBehaviour
 
     private Player player;
     private GameStats gameStats;
+    private WaveController waveController ;
 
     private void Awake()
     {
         player = GetComponent<Player>();
         gameStats = FindObjectOfType<GameStats>();
+        waveController  = FindObjectOfType<WaveController>();
     }
 
     #region Fire Rate Methods
@@ -75,10 +77,10 @@ public class PlayerUpgrades : MonoBehaviour
             1 => 25,
             2 => 60,
             3 => 100,
-            4 => 150,
-            5 => 300,
-            6 => 500,
-            7 => 750,
+            4 => 400,
+            5 => 800,
+            6 => 1000,
+            7 => 5000,
             _ => 0,
         };
     }
@@ -123,10 +125,10 @@ public class PlayerUpgrades : MonoBehaviour
         // Returns the cost in points for the next multi-shot upgrade
         return MultiShotLevel switch
         {
-            1 => 150,
-            2 => 375,
-            3 => 750,
-            4 => 1500,
+            1 => 250,
+            2 => 700,
+            3 => 1200,
+            4 => 3000,
             _ => 0,
         };
     }
@@ -144,7 +146,24 @@ public class PlayerUpgrades : MonoBehaviour
             _ => 0,
         };
     }
-    public int GetHealCost() => 10;
+    public int GetHealCost()
+    {
+        int wave = waveController.CurrentWaveNumber;
+
+        return wave switch
+        {
+        1 => 10,
+        2 => 10,
+        3 => 20,
+        4 => 50,
+        5 => 100,
+        6 => 100,
+        7 => 200,
+        8 => 500,
+        9 => 500,
+        _ => 500 
+        };
+    }
 
     public void HealToFull()
     {

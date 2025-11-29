@@ -12,6 +12,8 @@ public class GameStats : MonoBehaviour
 
     [SerializeField] private int points = 0; // Used for purchasing upgrades
     private int enemiesDefeated = 0;
+    
+    public int CurrentWave { get; private set; } = 1;
 
     private GameSceneUI gameSceneUI;
 
