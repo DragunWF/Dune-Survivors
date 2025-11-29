@@ -9,7 +9,7 @@ public class GameOverUI : MonoBehaviour
     #region Game Object Names
 
     private const string POINTS_TEXT = "PointsText";
-    private const string HIGH_SCORE_TEXT = "HighScoreText"; // Still points
+    private const string HIGH_SCORE_TEXT = "HighScoreText"; // Relates to points
     private const string NOTIFICATION_TEXT = "NotificationText";
     private const string ENEMIES_DEFEATED_TEXT = "EnemiesDefeatedText";
 
@@ -18,6 +18,7 @@ public class GameOverUI : MonoBehaviour
     private TextMeshProUGUI pointsText;
     private TextMeshProUGUI enemiesDefeatedText;
     private TextMeshProUGUI highScoreText;
+    private GameObject notificationTextObj;
 
     private GameStats gameStats;
 
@@ -26,20 +27,21 @@ public class GameOverUI : MonoBehaviour
         pointsText = GameObject.Find(POINTS_TEXT).GetComponent<TextMeshProUGUI>();
         enemiesDefeatedText = GameObject.Find(ENEMIES_DEFEATED_TEXT).GetComponent<TextMeshProUGUI>();
         highScoreText = GameObject.Find(HIGH_SCORE_TEXT).GetComponent<TextMeshProUGUI>();
+        gameStats = FindObjectOfType<GameStats>();
+
+        notificationTextObj = GameObject.Find(NOTIFICATION_TEXT);
+        notificationTextObj.SetActive(false);
     }
 
     private void Start()
     {
-        gameStats = FindObjectOfType<GameStats>();
-
         pointsText.text = $"Points: {gameStats.GetPoints()}";
         enemiesDefeatedText.text = $"Enemies Defeated: {gameStats.GetEnemiesDefeated()}";
+        highScoreText.text = $"High Score: {gameStats.HighestPointsEarned}";
 
-        highScoreText.gameObject.SetActive(false);
         if (gameStats.IsNewHighScore)
         {
-            highScoreText.gameObject.SetActive(true);
-            highScoreText.text = $"New High Score: {gameStats.HighestPointsEarned}";
+            notificationTextObj.SetActive(true);
         }
     }
 }
