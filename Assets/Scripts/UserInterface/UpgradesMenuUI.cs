@@ -145,6 +145,7 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void UpdatePriceText(int price = 0)
     {
+        priceText.color = Color.black;
         if (price == 0)
         {
             priceText.text = "Hover over a button to view price";
@@ -155,6 +156,7 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void UpdatePriceText(string text)
     {
+        priceText.color = Color.black;
         priceText.text = text;
     }
 
@@ -255,6 +257,7 @@ public class UpgradesMenuUI : MonoBehaviour
     {
         audioPlayer.PlayErrorClip();
         priceText.text = errorMessage;
+        priceText.color = Color.red;
     }
 
     private void UpdateAllPointsText()
