@@ -62,6 +62,11 @@ public sealed class WaveController : MonoBehaviour
                 secondsPassed++;
             }
 
+            if (currentWave >= waves.Length)
+            {
+                break;
+            }
+
             if (!player.IsDead)
             {
                 gameSceneUI.ShowWaveCompleteText();
