@@ -41,7 +41,7 @@ public sealed class AudioPlayer : MonoBehaviour
     {
         if (clickClip != null)
         {
-            PlayClip(clickClip, 3.5f);
+            PlayClip(clickClip, 4.5f);
         }
     }
 

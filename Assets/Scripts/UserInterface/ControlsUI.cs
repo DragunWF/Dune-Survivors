@@ -22,11 +22,13 @@ public class ControlsUI : MonoBehaviour
         controlsMenu.SetActive(false);
     }
 
-    public void OnControlsButtonClick(){
+    public void OnControlsButtonClick()
+    {
         controlsMenu.SetActive(true);
     }
-    
-    public void OnExitButtonClick(){
+
+    public void OnExitButtonClick()
+    {
         controlsMenu.SetActive(false);
     }
 }
