@@ -29,7 +29,11 @@ public class PlayerUpgrades : MonoBehaviour
     private void Awake()
     {
         player = GetComponent<Player>();
-        gameStats = FindObjectOfType<GameStats>();
+    }
+
+    private void Start()
+    {
+        gameStats = GameStats.Instance;
         waveController  = FindObjectOfType<WaveController>();
     }
 

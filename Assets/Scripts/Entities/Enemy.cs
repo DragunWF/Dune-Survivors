@@ -79,7 +79,6 @@ public sealed class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
 
         audioPlayer = FindObjectOfType<AudioPlayer>();
-        gameStats = FindObjectOfType<GameStats>();
         pauseMenuUI = FindObjectOfType<PauseMenuUI>();
 
         playerObj = GameObject.FindWithTag(PLAYER);
@@ -92,6 +91,11 @@ public sealed class Enemy : MonoBehaviour
         {
             Debug.LogError("Player GameObject not found. Make sure your player is tagged 'Player'.");
         }
+    }
+
+    private void Start()
+    {
+        gameStats = GameStats.Instance;
     }
 
     private void Update()

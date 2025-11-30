@@ -21,7 +21,6 @@ public sealed class WaveController : MonoBehaviour
     {
         gameSceneUI = FindObjectOfType<GameSceneUI>();
         sceneFader = FindObjectOfType<SceneFader>();
-        gameStats = FindObjectOfType<GameStats>();
         player = FindObjectOfType<Player>();
 
         // Wave difficulty settings
@@ -42,6 +41,7 @@ public sealed class WaveController : MonoBehaviour
 
     private void Start()
     {
+        gameStats = GameStats.Instance;
         StartCoroutine(WaveProgressionCoroutine());
     }
 

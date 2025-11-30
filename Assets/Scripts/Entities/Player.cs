@@ -97,7 +97,6 @@ public sealed class Player : MonoBehaviour
         pauseMenuUI = FindObjectOfType<PauseMenuUI>();
         playerUpgrades = GetComponent<PlayerUpgrades>();
         sceneFader = FindObjectOfType<SceneFader>();
-        gameStats = FindObjectOfType<GameStats>();
 
         playerWeaponObj = GameObject.Find(PLAYER_WEAPON);
         weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
@@ -109,6 +108,7 @@ public sealed class Player : MonoBehaviour
 
     private void Start()
     {
+        gameStats = GameStats.Instance;
         gameSceneUI.UpdatePlayerHealth(health);
     }
 

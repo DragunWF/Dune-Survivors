@@ -58,13 +58,13 @@ public class UpgradesMenuUI : MonoBehaviour
         playerUpgrades = FindObjectOfType<PlayerUpgrades>();
         player = FindObjectOfType<Player>();
         waveController = FindObjectOfType<WaveController>();
-        gameStats = FindObjectOfType<GameStats>();
         gameSceneUI = FindObjectOfType<GameSceneUI>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
     }
 
     private void Start()
     {
+        gameStats = GameStats.Instance;
         HideUpgradesMenu();
     }
 
