@@ -1207,8 +1207,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.913, y: -23.062}
-  m_SizeDelta: {x: 642.096, y: 302.229}
+  m_AnchoredPosition: {x: -0.8647, y: -71.339}
+  m_SizeDelta: {x: 624.5407, y: 398.7831}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &732647151
 MonoBehaviour:
@@ -2803,7 +2803,9 @@ MonoBehaviour:
     Mouse - Aim
 
     Left Click -
-    Shoot'
+    Shoot
+
+    Esc - Pause'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1bd9e08920d099c468c291e53b5a9b26, type: 2}
   m_sharedMaterial: {fileID: 1432703303671411919, guid: 1bd9e08920d099c468c291e53b5a9b26, type: 2}
@@ -3042,7 +3044,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.9129, y: -173}
+  m_AnchoredPosition: {x: 7.9129, y: -246}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2144719194
