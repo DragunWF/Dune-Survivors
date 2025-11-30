@@ -72,6 +72,11 @@ public class UpgradesMenuUI : MonoBehaviour
 
     public void EnableUpgradesMenu()
     {
+        if (player.IsDead)
+        {
+            return;
+        }
+
         if (upgradesMenuPanel != null)
         {
             upgradesMenuPanel.SetActive(true);
