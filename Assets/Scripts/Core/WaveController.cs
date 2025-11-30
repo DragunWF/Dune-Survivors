@@ -76,6 +76,8 @@ public sealed class WaveController : MonoBehaviour
             yield return new WaitUntil(() => nextWaveTask.Task.IsCompleted);
         }
 
+        yield return new WaitForSeconds(1.5f);
+
         const float gameCompletionDelay = 3f;
         gameSceneUI.ShowAllWaveCompletedText();
         gameStats.OnGameEnd(true);
