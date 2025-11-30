@@ -43,7 +43,7 @@ public class GameOverUI : MonoBehaviour
 
     private void Start()
     {
-        gameStats = FindObjectOfType<GameStats>();
+        gameStats = GameStats.Instance;
         SetGameStats();
     }
 

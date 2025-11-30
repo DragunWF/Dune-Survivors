@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameStats : MonoBehaviour
 {
+    private const string HIGH_SCORE_KEY = "HighScore";
+
     public static GameStats Instance { get; private set; }
     public bool IsGameWin { get; private set; }
     public int HighestPointsEarned { get; private set; }
@@ -19,7 +21,6 @@ public class GameStats : MonoBehaviour
 
     private void Awake()
     {
-        HighestPointsEarned = 0;
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -27,7 +28,9 @@ public class GameStats : MonoBehaviour
         else
         {
             Instance = this;
+            transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
+            HighestPointsEarned = PlayerPrefs.GetInt(HIGH_SCORE_KEY, 0);
         }
     }
 
@@ -64,6 +67,7 @@ public class GameStats : MonoBehaviour
         {
             HighestPointsEarned = points;
             IsNewHighScore = true;
+            PlayerPrefs.SetInt(HIGH_SCORE_KEY, HighestPointsEarned);
         }
     }
 
