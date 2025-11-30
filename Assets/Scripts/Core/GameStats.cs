@@ -12,13 +12,14 @@ public class GameStats : MonoBehaviour
 
     [SerializeField] private int points = 0; // Used for purchasing upgrades
     private int enemiesDefeated = 0;
-    
+
     public int CurrentWave { get; private set; } = 1;
 
     private GameSceneUI gameSceneUI;
 
     private void Awake()
     {
+        HighestPointsEarned = 0;
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -30,12 +31,16 @@ public class GameStats : MonoBehaviour
         }
     }
 
-    private void Start() => OnGameReset();
     private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
     private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name == "GameScene")
+        {
+            OnGameReset();
+        }
+
         gameSceneUI = FindObjectOfType<GameSceneUI>();
     }
 
@@ -52,9 +57,9 @@ public class GameStats : MonoBehaviour
         enemiesDefeated = 0;
     }
 
-    public void OnGameWin()
+    public void OnGameEnd(bool hasWon)
     {
-        IsGameWin = true;
+        IsGameWin = hasWon;
         if (points > HighestPointsEarned)
         {
             HighestPointsEarned = points;

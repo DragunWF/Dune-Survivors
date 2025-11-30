@@ -1389,12 +1389,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<color=black>Capstone / Game Development Project Team
+  m_text: '<color=black>Game Development Project Team
 
-    Bastian Kyle
-    Aguilar
+    Bastian Kyle Aguilar
 
-    Marc Plarisan
+    Marc
+    Plarisan
 
     Isaac Alan Severino
 

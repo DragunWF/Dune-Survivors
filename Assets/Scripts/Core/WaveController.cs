@@ -73,7 +73,7 @@ public sealed class WaveController : MonoBehaviour
 
         const float gameCompletionDelay = 3f;
         gameSceneUI.ShowAllWaveCompletedText();
-        gameStats.OnGameWin();
+        gameStats.OnGameEnd(true);
         yield return new WaitForSeconds(gameCompletionDelay);
         sceneFader.FadeToGameOverScene();
 

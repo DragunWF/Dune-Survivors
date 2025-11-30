@@ -81,6 +81,7 @@ public sealed class Player : MonoBehaviour
     private GameSceneUI gameSceneUI;
     private PauseMenuUI pauseMenuUI;
     private SceneFader sceneFader;
+    private GameStats gameStats;
 
     #endregion
 
@@ -96,6 +97,7 @@ public sealed class Player : MonoBehaviour
         pauseMenuUI = FindObjectOfType<PauseMenuUI>();
         playerUpgrades = GetComponent<PlayerUpgrades>();
         sceneFader = FindObjectOfType<SceneFader>();
+        gameStats = FindObjectOfType<GameStats>();
 
         playerWeaponObj = GameObject.Find(PLAYER_WEAPON);
         weaponSpriteRenderer = playerWeaponObj.GetComponent<SpriteRenderer>();
@@ -229,6 +231,7 @@ public sealed class Player : MonoBehaviour
     private IEnumerator StartDelayedGameOverTransition()
     {
         yield return new WaitForSeconds(1.5f);
+        gameStats.OnGameEnd(false);
         sceneFader.FadeToGameOverScene();
     }
 

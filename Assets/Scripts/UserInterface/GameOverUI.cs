@@ -34,7 +34,6 @@ public class GameOverUI : MonoBehaviour
         pointsText = GameObject.Find(POINTS_TEXT).GetComponent<TextMeshProUGUI>();
         enemiesDefeatedText = GameObject.Find(ENEMIES_DEFEATED_TEXT).GetComponent<TextMeshProUGUI>();
         highScoreText = GameObject.Find(HIGH_SCORE_TEXT).GetComponent<TextMeshProUGUI>();
-        gameStats = FindObjectOfType<GameStats>();
         gameOverArt = GameObject.Find(GAME_OVER_ART);
         playerWinArt = GameObject.Find(PLAYER_WIN_ART);
 
@@ -43,6 +42,12 @@ public class GameOverUI : MonoBehaviour
     }
 
     private void Start()
+    {
+        gameStats = FindObjectOfType<GameStats>();
+        SetGameStats();
+    }
+
+    private void SetGameStats()
     {
         pointsText.text = $"Points: {gameStats.GetPoints()}";
         enemiesDefeatedText.text = $"Enemies Defeated: {gameStats.GetEnemiesDefeated()}";
