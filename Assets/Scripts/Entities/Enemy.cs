@@ -258,7 +258,8 @@ public sealed class Enemy : MonoBehaviour
 
         animator.SetBool(IS_DEAD, true);
         gameStats.IncrementEnemiesDefeated();
-        gameStats.AddPoints(pointsGainedOnDeath);
+
+        gameStats.AddPoints(Random.Range(pointsGainedOnDeath, pointsGainedOnDeath + 10));
 
         StartCoroutine(DestroyAfterAnimation());
     }
