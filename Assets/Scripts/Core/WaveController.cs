@@ -24,18 +24,19 @@ public sealed class WaveController : MonoBehaviour
         player = FindObjectOfType<Player>();
 
         // Wave difficulty settings
+        // Time Limit - Spawn Interval - Enemy Type Count - Enemy Spawn Count Per Interval
         waves = new Wave[]
         {
-            new(30, 2.5f, 2, 1),  // Wave 1 
+            new(30, 2.85f, 2, 1),  // Wave 1 
             new(45, 2.5f, 3, 2),  // Wave 2 
             new(55, 2.4f, 3, 2),  // Wave 3 
-            new(55, 2.3f, 3, 3),  // Wave 4 
-            new(60, 2.3f, 4, 3),  // Wave 5 
-            new(60, 2.1f, 4, 3),  // Wave 6 
-            new(65, 2.0f, 4, 4), // Wave 7 
-            new(70, 1.5f, 4, 4), // Wave 8 
-            new(75, 1.2f, 4, 5), // Wave 9 
-            new(75, 0.8f, 4, 6)  // Wave 10 
+            new(60, 2.3f, 3, 3),  // Wave 4 
+            new(65, 2.3f, 4, 3),  // Wave 5 
+            new(70, 2.1f, 4, 3),  // Wave 6 
+            new(75, 2.0f, 4, 4), // Wave 7 
+            new(75, 1.5f, 4, 4), // Wave 8 
+            new(80, 1.2f, 4, 5), // Wave 9 
+            new(80, 0.8f, 4, 6)  // Wave 10 
         };
     }
 
